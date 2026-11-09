@@ -112,8 +112,4 @@ SerpentLK is intended for educational purposes. Snake identification based on ap
 
 In the event of a suspected snakebite, seek emergency medical care immediately. The application is not a substitute for professional medical advice.
 
-## Project Status
-
-**Under Development — Level 3**
-
 This README will be updated as additional features are completed.
