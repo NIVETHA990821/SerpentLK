@@ -1,4 +1,5 @@
 
+import { router } from 'expo-router';
 import { useState } from 'react';
 
 import {
@@ -15,13 +16,13 @@ import snakes from '@/data/snakes.json';
 type FilterType = 'all' | 'venomous' | 'nonvenomous';
 
 export default function SnakeListScreen() {
-  // Store the text entered in the search bar
+  // Search text
   const [search, setSearch] = useState('');
 
-  // Store the selected filter
+  // Selected filter
   const [filter, setFilter] = useState<FilterType>('all');
 
-  // Search and filter the local snake dataset
+  // Search and filter snakes
   const filteredSnakes = snakes.filter((snake) => {
     const searchText = search.trim().toLowerCase();
 
@@ -37,12 +38,21 @@ export default function SnakeListScreen() {
     return matchesSearch && matchesFilter;
   });
 
+  // Navigate to the selected snake's details
+  const openSnakeDetails = (id: string) => {
+    router.push({
+      pathname: '/snake/[id]',
+      params: { id },
+    });
+  };
+
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
     >
+      {/* Screen Heading */}
       <Text style={styles.heading}>Explore Snakes</Text>
 
       <Text style={styles.subtitle}>
@@ -114,14 +124,23 @@ export default function SnakeListScreen() {
         </Pressable>
       </View>
 
-      {/* Results Count */}
+      {/* Number of Results */}
       <Text style={styles.resultCount}>
         {filteredSnakes.length} snakes found
       </Text>
 
-      {/* Snake List */}
+      {/* Snake Cards */}
       {filteredSnakes.map((snake) => (
-        <View key={snake.id} style={styles.card}>
+        <Pressable
+          key={snake.id}
+          style={({ pressed }) => [
+            styles.card,
+            pressed && styles.cardPressed,
+          ]}
+          onPress={() => openSnakeDetails(snake.id)}
+          accessibilityRole="button"
+          accessibilityLabel={`View details for ${snake.name}`}
+        >
           <Text style={styles.name}>{snake.name}</Text>
 
           <Text style={styles.scientificName}>
@@ -135,10 +154,14 @@ export default function SnakeListScreen() {
           <Text style={styles.venomStatus}>
             {snake.venomous ? 'Venomous' : 'Non-venomous'}
           </Text>
-        </View>
+
+          <Text style={styles.viewDetails}>
+            View Details →
+          </Text>
+        </Pressable>
       ))}
 
-      {/* No Results Message */}
+      {/* No Results */}
       {filteredSnakes.length === 0 && (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyTitle}>
@@ -150,6 +173,12 @@ export default function SnakeListScreen() {
           </Text>
         </View>
       )}
+
+      {/* Safety Notice */}
+      <Text style={styles.disclaimer}>
+        This guide is for educational purposes only.
+        Do not approach or handle snakes.
+      </Text>
     </ScrollView>
   );
 }
@@ -159,21 +188,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F1F8E9',
   },
+
   content: {
     padding: 20,
     paddingBottom: 40,
   },
+
   heading: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#1B5E20',
     marginBottom: 8,
   },
+
   subtitle: {
     fontSize: 15,
     color: '#555555',
     marginBottom: 20,
   },
+
   searchInput: {
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -184,12 +217,14 @@ const styles = StyleSheet.create({
     color: '#222222',
     marginBottom: 18,
   },
+
   filterContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
     marginBottom: 20,
   },
+
   filterButton: {
     paddingVertical: 10,
     paddingHorizontal: 14,
@@ -198,23 +233,28 @@ const styles = StyleSheet.create({
     borderColor: '#388E3C',
     borderRadius: 20,
   },
+
   activeFilter: {
     backgroundColor: '#1B5E20',
   },
+
   filterText: {
     color: '#1B5E20',
     fontSize: 13,
     fontWeight: '600',
   },
+
   activeFilterText: {
     color: '#FFFFFF',
   },
+
   resultCount: {
     fontSize: 14,
     color: '#555555',
     marginBottom: 15,
     fontWeight: '600',
   },
+
   card: {
     backgroundColor: '#FFFFFF',
     padding: 18,
@@ -223,41 +263,68 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderLeftColor: '#388E3C',
   },
+
+  cardPressed: {
+    opacity: 0.7,
+  },
+
   name: {
     fontSize: 19,
     fontWeight: 'bold',
     color: '#1B5E20',
   },
+
   scientificName: {
     fontSize: 14,
     fontStyle: 'italic',
     color: '#666666',
     marginTop: 5,
   },
+
   description: {
     fontSize: 14,
     color: '#555555',
     marginTop: 8,
+    lineHeight: 21,
   },
+
   venomStatus: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#1B5E20',
     marginTop: 10,
   },
+
+  viewDetails: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#2E7D32',
+    marginTop: 12,
+  },
+
   emptyContainer: {
     padding: 30,
     alignItems: 'center',
   },
+
   emptyTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#1B5E20',
   },
+
   emptyMessage: {
     fontSize: 14,
     color: '#666666',
     marginTop: 8,
+    textAlign: 'center',
+  },
+
+  disclaimer: {
+    fontSize: 12,
+    color: '#666666',
+    marginTop: 20,
+    lineHeight: 19,
     textAlign: 'center',
   },
 });
