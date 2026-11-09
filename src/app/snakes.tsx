@@ -1,23 +1,7 @@
 
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const snakes = [
-  {
-    id: '1',
-    name: 'Indian Cobra',
-    scientificName: 'Naja naja',
-  },
-  {
-    id: '2',
-    name: "Russell's Viper",
-    scientificName: 'Daboia russelii',
-  },
-  {
-    id: '3',
-    name: 'Common Krait',
-    scientificName: 'Bungarus caeruleus',
-  },
-];
+import snakes from '@/data/snakes.json';
 
 export default function SnakeListScreen() {
   return (
@@ -37,6 +21,14 @@ export default function SnakeListScreen() {
 
           <Text style={styles.scientificName}>
             {snake.scientificName}
+          </Text>
+
+          <Text style={styles.description}>
+            {snake.description}
+          </Text>
+
+          <Text style={styles.venomStatus}>
+            {snake.venomous ? 'Venomous' : 'Non-venomous'}
           </Text>
         </View>
       ))}
@@ -82,5 +74,16 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     color: '#666666',
     marginTop: 5,
+  },
+  description: {
+    fontSize: 14,
+    color: '#555555',
+    marginTop: 8,
+  },
+  venomStatus: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#1B5E20',
+    marginTop: 10,
   },
 });

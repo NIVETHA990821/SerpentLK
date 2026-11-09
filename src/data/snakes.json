@@ -1,0 +1,38 @@
+
+[
+  {
+    "id": "1",
+    "name": "Indian Cobra",
+    "scientificName": "Naja naja",
+    "venomous": true,
+    "description": "A venomous cobra species found in Sri Lanka."
+  },
+  {
+    "id": "2",
+    "name": "Russell's Viper",
+    "scientificName": "Daboia russelii",
+    "venomous": true,
+    "description": "A venomous viper species found in Sri Lanka."
+  },
+  {
+    "id": "3",
+    "name": "Common Krait",
+    "scientificName": "Bungarus caeruleus",
+    "venomous": true,
+    "description": "A venomous krait species found in Sri Lanka."
+  },
+  {
+    "id": "4",
+    "name": "Indian Python",
+    "scientificName": "Python molurus",
+    "venomous": false,
+    "description": "A large non-venomous snake species found in Sri Lanka."
+  },
+  {
+    "id": "5",
+    "name": "Common Rat Snake",
+    "scientificName": "Ptyas mucosa",
+    "venomous": false,
+    "description": "A non-venomous snake species found in Sri Lanka."
+  }
+]
