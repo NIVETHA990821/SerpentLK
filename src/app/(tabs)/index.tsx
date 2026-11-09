@@ -1,25 +1,41 @@
 
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import {
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+    >
       <View style={styles.header}>
         <Text style={styles.title}>🐍 SerpentLK</Text>
+
         <Text style={styles.subtitle}>
           Sri Lankan Snake Identification Guide
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <Pressable
+        style={styles.card}
+        onPress={() => router.push('/snakes')}
+      >
         <Text style={styles.cardTitle}>Explore Snakes</Text>
+
         <Text style={styles.description}>
           Discover snakes found in Sri Lanka.
         </Text>
-      </View>
+      </Pressable>
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Compare Snakes</Text>
+
         <Text style={styles.description}>
           Learn how similar-looking snakes differ.
         </Text>
@@ -27,6 +43,7 @@ export default function HomeScreen() {
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>First-Aid Guide</Text>
+
         <Text style={styles.description}>
           Learn important snakebite safety information.
         </Text>
@@ -34,6 +51,7 @@ export default function HomeScreen() {
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>My Sightings</Text>
+
         <Text style={styles.description}>
           Keep a record of snakes you have observed.
         </Text>
@@ -46,7 +64,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F1F8E9',
+  },
+  content: {
     padding: 20,
+    paddingBottom: 40,
   },
   header: {
     backgroundColor: '#1B5E20',
