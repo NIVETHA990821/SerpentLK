@@ -1,56 +1,119 @@
-# Welcome to your Expo app 👋
+# 🐍 SerpentLK
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Offline Sri Lankan Snake Identification and First-Aid Guide
 
-## Get started
+SerpentLK is a React Native mobile application designed to help users learn about snakes found in Sri Lanka.
 
-1. Install dependencies
+The application aims to provide snake species information, identification guidance, snake comparison features, snakebite first-aid information, and personal snake sighting records.
 
-   ```bash
-   npm install
-   ```
+The project is being developed as an individual mobile application coursework project.
 
-2. Start the app
+## Technologies Used
 
-   ```bash
-   npx expo start
-   ```
+- React Native
+- Expo SDK 58
+- TypeScript
+- Expo Router
+- Git and GitHub
+- Visual Studio Code
 
-In the output, you'll find options to open the app in a
+## Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Currently Implemented
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Home Screen:** Displays the main sections of the application.
+- **Snake List Screen:** Displays sample Sri Lankan snake species and their scientific names.
+- **Navigation:** Supports Home and Explore tabs, navigation to the Snake List, and returning to the previous screen.
 
-## Get a fresh project
+### Planned Features
 
-When you're ready, run:
+- Offline dataset of Sri Lankan snake species
+- Snake identification information and images
+- Search and filter functionality
+- Detailed information about each snake
+- Snake comparison
+- Offline snakebite first-aid guidance
+- Personal snake sighting records
+- Local data storage
+- About screen
 
-```bash
-npm run reset-project
+## Project Structure
+
+```text
+SerpentLK/
+├── assets/
+├── src/
+│   ├── app/
+│   │   ├── _layout.tsx
+│   │   ├── snakes.tsx
+│   │   └── (tabs)/
+│   │       ├── _layout.tsx
+│   │       ├── index.tsx
+│   │       └── explore.tsx
+│   ├── components/
+│   ├── constants/
+│   └── hooks/
+├── package.json
+├── app.json
+└── README.md
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+## Getting Started
 
-### Other setup steps
+### Prerequisites
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Node.js
+- npm
+- Visual Studio Code
+- Expo Go or Android Emulator (optional for mobile testing)
 
-## Learn more
+### 1. Clone the Repository
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+git clone https://github.com/NIVETHA990821/SerpentLK.git
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 2. Open the Project
 
-## Join the community
+```bash
+cd SerpentLK
+```
 
-Join our community of developers creating universal apps.
+### 3. Install Dependencies
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm install
+```
+
+### 4. Start the Application
+
+```bash
+npx expo start
+```
+
+### 5. Run the Application
+
+After starting Expo:
+
+- Press `w` to open the web application.
+- Press `a` to open the Android application when an emulator is configured.
+- Use Expo Go on a compatible Android device for mobile testing.
+
+
+## Offline Functionality
+
+SerpentLK is designed to work without an internet connection after installation.
+
+The planned implementation will use locally stored snake information, images, and user sighting records without relying on public APIs.
+
+## Safety Notice
+
+SerpentLK is intended for educational purposes. Snake identification based on appearance is not guaranteed to be accurate.
+
+In the event of a suspected snakebite, seek emergency medical care immediately. The application is not a substitute for professional medical advice.
+
+## Project Status
+
+**Under Development — Level 3**
+
+This README will be updated as additional features are completed.
