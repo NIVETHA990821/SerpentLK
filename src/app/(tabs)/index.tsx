@@ -2,11 +2,11 @@
 import { router } from 'expo-router';
 
 import {
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
 export default function HomeScreen() {
@@ -82,8 +82,14 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* First Aid - Future Level */}
-      <View style={styles.card}>
+      {/* First-Aid Guide */}
+      <Pressable
+        style={({ pressed }) => [
+          styles.card,
+          pressed && styles.cardPressed,
+        ]}
+        onPress={() => router.push('/first-aid')}
+      >
         <Text style={styles.cardIcon}>🩹</Text>
 
         <View style={styles.cardContent}>
@@ -92,14 +98,13 @@ export default function HomeScreen() {
           </Text>
 
           <Text style={styles.cardDescription}>
-            Learn snakebite safety and first-aid guidance.
-          </Text>
-
-          <Text style={styles.comingSoon}>
-            Coming in Level 8
+            Read offline snakebite first-aid guidance
+            and important safety reminders.
           </Text>
         </View>
-      </View>
+
+        <Text style={styles.arrow}>›</Text>
+      </Pressable>
 
       {/* My Sightings - Future Level */}
       <View style={styles.card}>
@@ -130,6 +135,8 @@ export default function HomeScreen() {
           Never approach or handle an unknown snake.
           SerpentLK is an educational guide, not a
           professional identification service.
+          Seek immediate medical care for a suspected
+          snakebite.
         </Text>
       </View>
     </ScrollView>

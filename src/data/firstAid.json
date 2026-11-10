@@ -1,0 +1,65 @@
+
+{
+  "title": "Snakebite First-Aid Guide",
+  "emergencyMessage": "Suspected snakebite? Seek emergency medical care immediately. Do not wait for symptoms.",
+  "steps": [
+    {
+      "id": "1",
+      "title": "Move Away Safely",
+      "description": "Move away from the snake to avoid another bite. Do not attempt to catch or handle it."
+    },
+    {
+      "id": "2",
+      "title": "Get Emergency Help",
+      "description": "Arrange urgent transport to the nearest hospital. Do not delay for snake identification or home treatment."
+    },
+    {
+      "id": "3",
+      "title": "Keep the Person Still",
+      "description": "Reassure the person and minimise movement. Avoid walking if possible. Arrange transport instead."
+    },
+    {
+      "id": "4",
+      "title": "Remove Tight Items",
+      "description": "Remove rings, watches, bracelets and tight clothing near the bite before swelling develops."
+    },
+    {
+      "id": "5",
+      "title": "Keep the Limb Still",
+      "description": "Support the bitten limb and keep it still without tight compression. Do not apply a tourniquet."
+    },
+    {
+      "id": "6",
+      "title": "Monitor and Inform",
+      "description": "Watch the person's breathing and responsiveness. Tell hospital staff the time and place of the bite if known."
+    }
+  ],
+  "donts": [
+    {
+      "id": "1",
+      "title": "Do Not Use a Tourniquet",
+      "description": "Do not tie a rope, cloth or tight bandage around the bitten limb."
+    },
+    {
+      "id": "2",
+      "title": "Do Not Cut or Suck",
+      "description": "Do not cut the bite or attempt to suck out venom."
+    },
+    {
+      "id": "3",
+      "title": "Do Not Apply Ice",
+      "description": "Do not apply ice, heat, chemicals or herbal pastes."
+    },
+    {
+      "id": "4",
+      "title": "Do Not Catch the Snake",
+      "description": "Never attempt to capture, kill or handle the snake."
+    },
+    {
+      "id": "5",
+      "title": "Do Not Delay Treatment",
+      "description": "Do not wait for symptoms, traditional remedies or online identification."
+    }
+  ],
+  "disclaimer": "Educational information only. This guide does not replace emergency medical care or professional advice."
+}

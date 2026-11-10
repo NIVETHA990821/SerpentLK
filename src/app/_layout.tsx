@@ -31,6 +31,13 @@ export default function RootLayout() {
           title: 'Compare Snakes',
         }}
       />
+
+      <Stack.Screen
+        name="first-aid"
+        options={{
+          title: 'Snakebite First Aid',
+        }}
+      />
     </Stack>
   );
 }
