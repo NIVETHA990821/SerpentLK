@@ -1,12 +1,11 @@
 
-import { useCallback, useState } from 'react';
-
-import { useFocusEffect } from 'expo-router';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
 
 import {
     ActivityIndicator,
+    Pressable,
     ScrollView,
     StyleSheet,
     Text,
@@ -30,10 +29,10 @@ export default function SightingsScreen() {
       const storedData = await AsyncStorage.getItem(STORAGE_KEY);
 
       if (storedData) {
-        const parsedData = JSON.parse(storedData);
+        const parsedData: unknown = JSON.parse(storedData);
 
         if (Array.isArray(parsedData)) {
-          setSightings(parsedData);
+          setSightings(parsedData as Sighting[]);
         } else {
           setSightings([]);
           setError('Saved sightings have an invalid format.');
@@ -64,8 +63,20 @@ export default function SightingsScreen() {
       <Text style={styles.heading}>My Sightings</Text>
 
       <Text style={styles.subtitle}>
-        View your locally saved snake sighting records.
+        View snake sightings saved locally on this device.
       </Text>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.addButton,
+          pressed && styles.pressedButton,
+        ]}
+        onPress={() => router.push('/add-sighting')}
+      >
+        <Text style={styles.addButtonText}>
+          + Add New Sighting
+        </Text>
+      </Pressable>
 
       {loading ? (
         <View style={styles.centerBox}>
@@ -89,17 +100,14 @@ export default function SightingsScreen() {
 
           <Text style={styles.emptyMessage}>
             You have not saved any snake sightings.
-          </Text>
-
-          <Text style={styles.comingSoon}>
-            The Add Sighting feature will be available
-            in Level 10.
+            Press Add New Sighting to create your first record.
           </Text>
         </View>
       ) : (
         <View>
           <Text style={styles.resultCount}>
-            {sightings.length} saved sightings
+            {sightings.length}{' '}
+            {sightings.length === 1 ? 'saved sighting' : 'saved sightings'}
           </Text>
 
           {sightings.map((sighting) => (
@@ -133,7 +141,7 @@ export default function SightingsScreen() {
 
         <Text style={styles.noticeText}>
           Observe snakes only from a safe distance.
-          Never approach, touch, or capture a snake
+          Never approach, touch or capture a snake
           to record a sighting.
         </Text>
       </View>
@@ -164,7 +172,25 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#555555',
     lineHeight: 22,
+    marginBottom: 20,
+  },
+
+  addButton: {
+    backgroundColor: '#1B5E20',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
     marginBottom: 25,
+  },
+
+  pressedButton: {
+    opacity: 0.7,
+  },
+
+  addButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 
   centerBox: {
@@ -210,14 +236,6 @@ const styles = StyleSheet.create({
     color: '#666666',
     textAlign: 'center',
     lineHeight: 22,
-  },
-
-  comingSoon: {
-    fontSize: 13,
-    color: '#888888',
-    fontStyle: 'italic',
-    textAlign: 'center',
-    marginTop: 15,
   },
 
   resultCount: {
