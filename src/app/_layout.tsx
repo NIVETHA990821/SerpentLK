@@ -38,6 +38,13 @@ export default function RootLayout() {
           title: 'Snakebite First Aid',
         }}
       />
+
+      <Stack.Screen
+        name="sightings"
+        options={{
+          title: 'My Sightings',
+        }}
+      />
     </Stack>
   );
 }

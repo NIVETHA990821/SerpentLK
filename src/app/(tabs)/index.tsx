@@ -106,8 +106,14 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* My Sightings - Future Level */}
-      <View style={styles.card}>
+      {/* My Sightings */}
+      <Pressable
+        style={({ pressed }) => [
+          styles.card,
+          pressed && styles.cardPressed,
+        ]}
+        onPress={() => router.push('/sightings')}
+      >
         <Text style={styles.cardIcon}>📍</Text>
 
         <View style={styles.cardContent}>
@@ -116,14 +122,12 @@ export default function HomeScreen() {
           </Text>
 
           <Text style={styles.cardDescription}>
-            Save and manage your snake sighting records.
-          </Text>
-
-          <Text style={styles.comingSoon}>
-            Coming in Level 9
+            View your saved snake sighting records.
           </Text>
         </View>
-      </View>
+
+        <Text style={styles.arrow}>›</Text>
+      </Pressable>
 
       {/* Safety Notice */}
       <View style={styles.notice}>
@@ -231,13 +235,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#666666',
     lineHeight: 20,
-  },
-
-  comingSoon: {
-    fontSize: 12,
-    color: '#888888',
-    fontStyle: 'italic',
-    marginTop: 8,
   },
 
   arrow: {
