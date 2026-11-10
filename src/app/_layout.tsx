@@ -38,6 +38,11 @@ export default function RootLayout() {
         name="add-sighting"
         options={{ title: 'Add Sighting' }}
       />
+
+      <Stack.Screen
+        name="about"
+        options={{ title: 'About SerpentLK' }}
+      />
     </Stack>
   );
 }

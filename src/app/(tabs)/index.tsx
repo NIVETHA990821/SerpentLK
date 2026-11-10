@@ -15,18 +15,14 @@ export default function HomeScreen() {
       style={styles.container}
       contentContainerStyle={styles.content}
     >
-      {/* App Header */}
       <View style={styles.header}>
         <Text style={styles.logo}>🐍</Text>
-
         <Text style={styles.title}>SerpentLK</Text>
-
         <Text style={styles.subtitle}>
           Sri Lankan Snake Identification Guide
         </Text>
       </View>
 
-      {/* Welcome Section */}
       <Text style={styles.welcome}>
         Welcome to SerpentLK
       </Text>
@@ -36,7 +32,6 @@ export default function HomeScreen() {
         compare species, and learn about snake safety.
       </Text>
 
-      {/* Explore Snakes */}
       <Pressable
         style={({ pressed }) => [
           styles.card,
@@ -47,10 +42,7 @@ export default function HomeScreen() {
         <Text style={styles.cardIcon}>🔍</Text>
 
         <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>
-            Explore Snakes
-          </Text>
-
+          <Text style={styles.cardTitle}>Explore Snakes</Text>
           <Text style={styles.cardDescription}>
             Search and discover Sri Lankan snake species.
           </Text>
@@ -59,7 +51,6 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* Compare Snakes */}
       <Pressable
         style={({ pressed }) => [
           styles.card,
@@ -70,10 +61,7 @@ export default function HomeScreen() {
         <Text style={styles.cardIcon}>⚖️</Text>
 
         <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>
-            Compare Snakes
-          </Text>
-
+          <Text style={styles.cardTitle}>Compare Snakes</Text>
           <Text style={styles.cardDescription}>
             Compare two snakes side by side.
           </Text>
@@ -82,7 +70,6 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* First-Aid Guide */}
       <Pressable
         style={({ pressed }) => [
           styles.card,
@@ -93,10 +80,7 @@ export default function HomeScreen() {
         <Text style={styles.cardIcon}>🩹</Text>
 
         <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>
-            First-Aid Guide
-          </Text>
-
+          <Text style={styles.cardTitle}>First-Aid Guide</Text>
           <Text style={styles.cardDescription}>
             Read offline snakebite first-aid guidance
             and important safety reminders.
@@ -106,7 +90,6 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* My Sightings */}
       <Pressable
         style={({ pressed }) => [
           styles.card,
@@ -117,10 +100,7 @@ export default function HomeScreen() {
         <Text style={styles.cardIcon}>📍</Text>
 
         <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>
-            My Sightings
-          </Text>
-
+          <Text style={styles.cardTitle}>My Sightings</Text>
           <Text style={styles.cardDescription}>
             View your saved snake sighting records.
           </Text>
@@ -129,7 +109,25 @@ export default function HomeScreen() {
         <Text style={styles.arrow}>›</Text>
       </Pressable>
 
-      {/* Safety Notice */}
+      <Pressable
+        style={({ pressed }) => [
+          styles.card,
+          pressed && styles.cardPressed,
+        ]}
+        onPress={() => router.push('/about')}
+      >
+        <Text style={styles.cardIcon}>ℹ️</Text>
+
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>About SerpentLK</Text>
+          <Text style={styles.cardDescription}>
+            Learn about the app, its features and safety information.
+          </Text>
+        </View>
+
+        <Text style={styles.arrow}>›</Text>
+      </Pressable>
+
       <View style={styles.notice}>
         <Text style={styles.noticeTitle}>
           Safety Reminder
@@ -139,8 +137,7 @@ export default function HomeScreen() {
           Never approach or handle an unknown snake.
           SerpentLK is an educational guide, not a
           professional identification service.
-          Seek immediate medical care for a suspected
-          snakebite.
+          Seek immediate medical care for a suspected snakebite.
         </Text>
       </View>
     </ScrollView>
