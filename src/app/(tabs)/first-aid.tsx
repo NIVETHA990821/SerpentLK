@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { useAppTheme } from '@/context/app-theme';
+import { useLanguage } from '@/i18n/LanguageProvider';
 import firstAid from '@/data/firstAid.json';
 import { hospitals } from '@/data/hospitals';
 
@@ -19,6 +20,7 @@ export default function FirstAidScreen() {
   const [section, setSection] = useState<Section>('do');
 
   const { colors } = useAppTheme();
+  const { t } = useLanguage();
 
   const callEmergency = () => {
     Linking.openURL(
@@ -41,7 +43,7 @@ export default function FirstAidScreen() {
             { color: colors.text },
           ]}
         >
-          Snakebite Emergency First Aid
+          {t("snakebiteFirstAid")}
         </Text>
 
 
@@ -57,19 +59,19 @@ export default function FirstAidScreen() {
 
         <View style={{ flex: 1 }}>
           <Text style={styles.emergencyLabel}>
-            FREE 24/7 AMBULANCE
+            {t("ambulance")}
           </Text>
 
           <Text style={styles.emergencyTitle}>
-            CALL 1990 NOW
+            {t("callNow")}
           </Text>
 
           <Text style={styles.emergencySubtitle}>
-            Suwa Seriya Ambulance Service
+            {t("ambulanceService")}
           </Text>
 
           <Text style={styles.emergencySmall}>
-            Emergency telephone service in Sri Lanka
+            {t("emergencyPhone")}
           </Text>
         </View>
 
@@ -91,18 +93,16 @@ export default function FirstAidScreen() {
             { color: colors.text },
           ]}
         >
-          ⚠️ SerpentLK is an educational guide and does not
-          replace emergency medical care. Seek immediate
-          hospital treatment for any suspected snakebite.
+          ⚠️ {t('firstAidNotice')}
         </Text>
       </View>
 
       <View style={styles.tabs}>
         {(
           [
-            { id: 'do', label: '✔ What To Do' },
-            { id: 'dont', label: '✖ What NOT To Do' },
-            { id: 'hospitals', label: '🏥 Hospitals' },
+            { id: 'do', label: `✔ ${t('whatToDo')}` },
+            { id: 'dont', label: `✖ ${t('whatNotToDo')}` },
+            { id: 'hospitals', label: `🏥 ${t('hospitals')}` },
           ] as const
         ).map((item) => {
           const selected = section === item.id;
@@ -150,7 +150,7 @@ export default function FirstAidScreen() {
               { color: colors.text },
             ]}
           >
-            What To Do After a Snakebite
+            {t("whatToDoAfter")}
           </Text>
 
           {firstAid.steps.map((step, index) => (
@@ -202,7 +202,7 @@ export default function FirstAidScreen() {
               { color: colors.text },
             ]}
           >
-            What NOT To Do
+            {t("whatNotToDo")}
           </Text>
 
           {firstAid.donts.map((item) => (
@@ -250,7 +250,7 @@ export default function FirstAidScreen() {
               { color: colors.text },
             ]}
           >
-            Major Hospitals for Emergency Care
+            {t("majorHospitals")}
           </Text>
 
           <Text
@@ -259,10 +259,7 @@ export default function FirstAidScreen() {
               { color: colors.muted },
             ]}
           >
-            Reference list of major Sri Lankan hospitals.
-            This is not a live directory. Antivenom
-            availability and emergency services have
-            not been verified for this list.
+            {t('hospitalIntro')}
           </Text>
 
           <View
@@ -275,9 +272,7 @@ export default function FirstAidScreen() {
             ]}
           >
             <Text style={{ color: colors.text, lineHeight: 21 }}>
-              For a suspected snakebite, call 1990 and
-              follow emergency medical advice. Do not
-              delay care to travel to a hospital on this list.
+              {t('hospitalWarning')}
             </Text>
           </View>
 
@@ -345,7 +340,7 @@ export default function FirstAidScreen() {
             { color: colors.text },
           ]}
         >
-          MEDICAL GUIDANCE REFERENCES
+          {t("medicalReferences")}
         </Text>
 
         <Text
@@ -365,8 +360,7 @@ export default function FirstAidScreen() {
             { color: colors.muted },
           ]}
         >
-          Review official current guidance before publishing
-          medical information.
+          {t('guidanceReview')}
         </Text>
       </View>
 

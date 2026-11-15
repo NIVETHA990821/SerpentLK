@@ -6,6 +6,7 @@ import { Icon, type IconName } from '@/components/icon';
 import { Section } from '@/components/section';
 import { colors, MAX_WIDTH, radius, shadow, space, type } from '@/constants/theme';
 import { useAppTheme } from '@/context/app-theme';
+import { useLanguage, type AppLanguage } from '@/i18n/LanguageProvider';
 import { useSettings } from '@/context/settings';
 import { snakes } from '@/utils/snakes';
 
@@ -27,6 +28,7 @@ const SOURCES = [
 export default function AboutScreen() {
   const { showPhotos, setShowPhotos, downloadAllPhotos, savedPhotoCount } = useSettings();
   const { mode, colors: theme, toggleTheme } = useAppTheme();
+  const { language, setLanguage, t } = useLanguage();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [progress, setProgress] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -54,11 +56,43 @@ export default function AboutScreen() {
         <Text style={styles.version}>Version 1.1.0</Text>
       </View>
 
-      <Section title="Appearance" icon="contrast-outline">
+      <Section title={t('language')} icon="language-outline">
+        <Text style={styles.settingTitle}>{t('chooseLanguage')}</Text>
+        <Text style={styles.settingText}>{t('languageHint')}</Text>
+        <View style={{ gap: 10, marginTop: 12 }}>
+          {([
+            ['ta', 'தமிழ் — Tamil'],
+            ['en', 'English'],
+            ['si', 'සිංහල — Sinhala'],
+          ] as const).map(([code, label]) => (
+            <Pressable
+              key={code}
+              onPress={() => setLanguage(code)}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: language === code }}
+              style={{
+                padding: 13,
+                borderRadius: 12,
+                borderWidth: language === code ? 2 : 1,
+                borderColor: language === code ? colors.leaf : theme.border,
+                backgroundColor: language === code ? theme.soft : theme.card,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ color: theme.text, fontWeight: '700' }}>{label}</Text>
+              <Text style={{ color: theme.text }}>{language === code ? '✓' : ''}</Text>
+            </Pressable>
+          ))}
+        </View>
+      </Section>
+
+      <Section title={t('appearance')} icon="contrast-outline">
         <View style={styles.settingRow}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.settingTitle}>Dark mode</Text>
-            <Text style={styles.settingText}>Also available from the First Aid tab.</Text>
+            <Text style={styles.settingTitle}>{t("darkMode")}</Text>
+            <Text style={styles.settingText}>{t("darkModeHint")}</Text>
           </View>
           <Switch
             value={mode === 'dark'}
@@ -70,10 +104,10 @@ export default function AboutScreen() {
         </View>
       </Section>
 
-      <Section title="Species photos" icon="image-outline">
+      <Section title={t("speciesPhotos")} icon="image-outline">
         <View style={styles.settingRow}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.settingTitle}>Show real photos</Text>
+            <Text style={styles.settingTitle}>{t("showRealPhotos")}</Text>
             <Text style={styles.settingText}>
               Free-licence photos from Wikipedia. Illustrations are shown when you are offline.
             </Text>
@@ -103,7 +137,7 @@ export default function AboutScreen() {
         )}
       </Section>
 
-      <Section title="What you can do" icon="sparkles-outline">
+      <Section title={t("whatYouCanDo")} icon="sparkles-outline">
         {FEATURES.map((f) => (
           <View key={f.title} style={styles.feature}>
             <View style={styles.featureIcon}>
@@ -117,7 +151,7 @@ export default function AboutScreen() {
         ))}
       </Section>
 
-      <Section title="Sources" icon="library-outline">
+      <Section title={t("sources")} icon="library-outline">
         <Text style={styles.settingText}>
           Species facts were checked against published Sri Lankan checklists and field guides.
         </Text>
@@ -132,12 +166,10 @@ export default function AboutScreen() {
       <View style={styles.safety}>
         <View style={styles.safetyHead}>
           <Icon name="warning" size={18} color={colors.danger} />
-          <Text style={styles.safetyTitle}>Important safety information</Text>
+          <Text style={styles.safetyTitle}>{t("importantSafety")}</Text>
         </View>
         <Text style={styles.safetyText}>
-          SerpentLK is for education. It cannot reliably identify an unknown snake or tell whether a
-          bite is harmless. Never approach, touch or capture a snake. After any suspected bite, go
-          to hospital straight away and call 1990 for a free ambulance.
+          {t('safetyInfo')}
         </Text>
       </View>
 

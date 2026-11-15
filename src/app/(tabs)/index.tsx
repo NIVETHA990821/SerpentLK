@@ -4,14 +4,15 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { EndemicBadge } from '@/components/endemic-badge';
+import { useAppTheme } from '@/context/app-theme';
+import { useLanguage } from '@/i18n/LanguageProvider';
 import { Icon, type IconName } from '@/components/icon';
 import { SnakeImage } from '@/components/snake-image';
 import { VenomBadge } from '@/components/venom-badge';
 import { colors, MAX_WIDTH, radius, shadow, space, type } from '@/constants/theme';
-import { useAppTheme } from '@/context/app-theme';
 import type { VenomLevel } from '@/types/snake';
-import { snakeOfTheDay, snakes, VENOM_META } from '@/utils/snakes';
 import { loadSightings } from '@/utils/storage';
+import { snakeOfTheDay, snakes, VENOM_META } from '@/utils/snakes';
 
 const LEVELS: VenomLevel[] = ['highly_venomous', 'mildly_venomous', 'non_venomous'];
 
@@ -30,12 +31,13 @@ function greeting(date = new Date()) {
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { colors: theme } = useAppTheme();
+  const { language, t } = useLanguage();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [sightingCount, setSightingCount] = useState(0);
   const [now, setNow] = useState(() => new Date());
-  const welcome = greeting(now);
+  const welcome = t(now.getHours() >= 5 && now.getHours() < 12 ? 'goodMorning' : now.getHours() < 17 ? 'goodAfternoon' : now.getHours() < 21 ? 'goodEvening' : 'goodNight');
   const currentTime = now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true });
-  const currentDate = now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const currentDate = now.toLocaleDateString(language === 'ta' ? 'ta-IN' : language === 'si' ? 'si-LK' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const featured = snakeOfTheDay();
 
   // Refresh the sightings count every time the Home tab is shown.
@@ -48,11 +50,16 @@ export default function HomeScreen() {
     }, [])
   );
 
+  const localizedTools = TOOLS.map((item, index) => ({
+    ...item,
+    title: [t('identify'), t('compare'), t('logSighting'), t('settings')][index],
+    sub: [t('quickQuestions'), t('lookAlikes'), t('savedPhone'), t('photosAbout')][index],
+  }));
   const stats = [
-    { label: 'Species', value: snakes.length },
-    { label: 'Venomous', value: snakes.filter((s) => s.venomous).length },
-    { label: 'Endemic', value: snakes.filter((s) => s.endemic).length },
-    { label: 'Sightings', value: sightingCount },
+    { label: t('species'), value: snakes.length },
+    { label: t('venomous'), value: snakes.filter((s) => s.venomous).length },
+    { label: t('endemic'), value: snakes.filter((s) => s.endemic).length },
+    { label: t('sightings'), value: sightingCount },
   ];
 
   return (
@@ -66,7 +73,7 @@ export default function HomeScreen() {
             <Text style={styles.brand}>SerpentLK</Text>
             <View style={styles.offline}>
               <Icon name="cloud-offline-outline" size={13} color={colors.moss} />
-              <Text style={styles.offlineText}>Works offline</Text>
+              <Text style={styles.offlineText}>{t("worksOffline")}</Text>
             </View>
           </View>
           <Text style={styles.greeting}>{welcome}</Text>
@@ -76,7 +83,7 @@ export default function HomeScreen() {
           <Text style={{ color: colors.white, opacity: 0.85, fontSize: 12, marginTop: 3, marginBottom: 6 }}>
             {currentDate}
           </Text>
-          <Text style={styles.headline}>Know the snakes{'\n'}of Sri Lanka</Text>
+          <Text style={styles.headline}>{t('knowSnakes')}</Text>
 
           <View style={styles.statsRow}>
             {stats.map((s) => (
@@ -100,14 +107,14 @@ export default function HomeScreen() {
             <Icon name="medkit" size={24} color={colors.danger} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.emergencyTitle}>Snakebite emergency?</Text>
-            <Text style={styles.emergencyText}>First aid steps and the 1990 ambulance</Text>
+            <Text style={styles.emergencyTitle}>{t("snakebiteEmergency")}</Text>
+            <Text style={styles.emergencyText}>{t("firstAidHelp")}</Text>
           </View>
           <Icon name="chevron-forward" size={22} color={colors.white} />
         </Pressable>
 
         <View style={styles.grid}>
-          {TOOLS.map((t) => (
+          {localizedTools.map((t) => (
             <Pressable
               key={t.title}
               style={({ pressed }) => [styles.tool, shadow, pressed && styles.pressed]}
@@ -123,7 +130,7 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        <Text style={styles.overline}>Snake of the day</Text>
+        <Text style={styles.overline}>{t("snakeOfDay")}</Text>
         <Pressable
           style={({ pressed }) => [styles.featured, shadow, pressed && styles.pressed]}
           onPress={() => router.push({ pathname: '/snake/[id]', params: { id: featured.id } })}
@@ -144,7 +151,7 @@ export default function HomeScreen() {
           </View>
         </Pressable>
 
-        <Text style={styles.overline}>Browse by danger level</Text>
+        <Text style={styles.overline}>{t("browseDanger")}</Text>
         <View style={[styles.levels, shadow]}>
           {LEVELS.map((level, i) => {
             const meta = VENOM_META[level];
@@ -163,7 +170,7 @@ export default function HomeScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.levelTitle}>{meta.label}</Text>
-                  <Text style={styles.levelCount}>{count} species</Text>
+                  <Text style={styles.levelCount}>{count} {t('speciesCount')}</Text>
                 </View>
                 <Icon name="chevron-forward" size={20} color={theme.muted} />
               </Pressable>
@@ -172,8 +179,7 @@ export default function HomeScreen() {
         </View>
 
         <Text style={styles.disclaimer}>
-          Educational guide only. It does not replace medical care. After any snakebite, go to the
-          nearest hospital immediately. Never try to catch or kill a snake.
+          {t('educationWarning')}
         </Text>
       </View>
     </ScrollView>
