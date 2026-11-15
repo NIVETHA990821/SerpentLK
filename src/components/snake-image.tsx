@@ -12,13 +12,14 @@ type Props = {
   style?: StyleProp<ImageStyle>;
   // Show the bundled illustration even when photos are on (e.g. tiny thumbnails).
   illustrationOnly?: boolean;
+  fit?: 'cover' | 'contain';
   onSourceChange?: (kind: 'photo' | 'illustration') => void;
 };
 
 // Shows the species photo when one is available, otherwise the bundled
 // illustration. The illustration doubles as the placeholder while the photo
 // loads, and as the fallback if it fails, so there is never a blank box.
-export function SnakeImage({ snake, style, illustrationOnly, onSourceChange }: Props) {
+export function SnakeImage({ snake, style, illustrationOnly, fit = 'cover', onSourceChange }: Props) {
   const { photoFor, requestPhoto } = useSettings();
   const [failed, setFailed] = useState(false);
   // A bundled photo (from scripts/fetch-photos.mjs) works offline, so no download is needed.
@@ -38,8 +39,8 @@ export function SnakeImage({ snake, style, illustrationOnly, onSourceChange }: P
     <Image
       source={photo ? { uri: photo.url } : illustration}
       placeholder={photo ? illustration : undefined}
-      placeholderContentFit="cover"
-      contentFit="cover"
+      placeholderContentFit={fit}
+      contentFit={fit}
       cachePolicy="disk"
       transition={250}
       onError={() => setFailed(true)}

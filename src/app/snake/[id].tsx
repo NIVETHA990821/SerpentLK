@@ -9,6 +9,9 @@ import { SnakeImage } from '@/components/snake-image';
 import { VenomBadge } from '@/components/venom-badge';
 import { palette } from '@/constants/palette';
 import { useAppTheme } from '@/context/app-theme';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { snakeDisplayName, snakeNameInfo, activeTranslationKey, localizedHabitat } from '@/i18n/snake-language';
+import { localizedSnakeDetails, localTerm } from '@/i18n/snake-details';
 import { useFavourites } from '@/context/favourites';
 import { colors, radius, shadow } from '@/constants/theme';
 import { PHOTO_CREDITS } from '@/data/credits';
@@ -27,6 +30,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function SnakeDetailScreen() {
   const { colors: theme } = useAppTheme();
+  const { language, t } = useLanguage();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { isFavourite, toggleFavourite } = useFavourites();
   const snake = getSnake(id);
@@ -36,17 +40,18 @@ export default function SnakeDetailScreen() {
   if (!snake) {
     return (
       <View style={[styles.missing, { backgroundColor: theme.background }]}>
-        <Text style={[styles.missingText, { color: theme.muted }]}>Snake not found</Text>
+        <Text style={[styles.missingText, { color: theme.muted }]}>{t("snakeNotFound")}</Text>
       </View>
     );
   }
 
+  const details = localizedSnakeDetails(snake, language);
   const favourite = isFavourite(snake.id);
   const lookAlikes = snake.lookAlikes.map(getSnake).filter((s) => s !== undefined);
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: snake.name }} />
+      <Stack.Screen options={{ title: snakeDisplayName(snake, language) }} />
 
       <View>
         <SnakeImage snake={snake} style={styles.hero} onSourceChange={setSource} />
@@ -63,20 +68,36 @@ export default function SnakeDetailScreen() {
             <Text style={styles.creditText} numberOfLines={1}>
               {PHOTO_CREDITS[snake.id]
                 ? `© ${PHOTO_CREDITS[snake.id].author} · ${PHOTO_CREDITS[snake.id].license}`
-                : 'Photo: Wikipedia / Wikimedia Commons'}
+                : t('photoCredit')}
             </Text>
           </Pressable>
         ) : (
           <View style={styles.credit}>
             <Icon name="brush-outline" size={12} color={colors.white} />
-            <Text style={styles.creditText}>Illustration</Text>
+            <Text style={styles.creditText}>{t("illustration")}</Text>
           </View>
         )}
       </View>
 
       <View style={styles.titleBlock}>
-        <Text style={[styles.name, { color: theme.text }]}>{snake.name}</Text>
-        {localNames(snake) !== '' && <Text style={[styles.local, { color: theme.muted }]}>{localNames(snake)}</Text>}
+        <Text style={[styles.name, { color: theme.text }]}>{snakeDisplayName(snake, language)}</Text>
+        {snakeNameInfo(snake, language).isPhonetic && (
+          <Text style={[styles.local, { color: theme.muted }]}>
+            {language === 'ta' ? 'ஆங்கிலப் பெயரின் ஒலிபெயர்ப்பு — உள்ளூர் பெயர் உறுதிப்படுத்தப்படவில்லை' : 'ඉංග්‍රීසි නමේ අක්ෂර පරිවර්තනය — දේශීය නම තහවුරු කර නැත'}
+          </Text>
+        )}
+        {snakeNameInfo(snake, language).isDescriptive && (
+          <Text style={[styles.local, { color: theme.muted }]}>
+            விளக்கப் பெயர் — இந்த இனத்துக்குத் தனி வழக்குத் தமிழ்ப் பெயர் இல்லை
+          </Text>
+        )}
+        {language === 'ta' && !!snake.tamilOtherNames?.length && (
+          <Text style={[styles.local, { color: theme.muted }]}>
+            வேறு பெயர்கள்: {snake.tamilOtherNames.join(', ')}
+          </Text>
+        )}
+        {language !== 'en' && <Text style={[styles.local, { color: theme.muted }]}>{snake.name}</Text>}
+        {language === 'en' && localNames(snake) !== '' && <Text style={[styles.local, { color: theme.muted }]}>{localNames(snake)}</Text>}
         <Text style={[styles.scientific, { color: theme.muted }]}>
           {snake.scientificName} · {snake.family}
         </Text>
@@ -91,67 +112,68 @@ export default function SnakeDetailScreen() {
         <View style={[styles.warning, { backgroundColor: theme.dangerBackground, borderColor: theme.dangerText }]} accessibilityRole="alert">
           <View style={styles.row}>
             <Icon name="warning" size={18} color={colors.danger} />
-            <Text style={[styles.warningTitle, { color: theme.dangerText }]}>Do not handle this snake</Text>
+            <Text style={[styles.warningTitle, { color: theme.dangerText }]}>{t("doNotHandle")}</Text>
           </View>
           <Text style={[styles.warningText, { color: theme.text }]}>
-            Keep away and seek hospital care after any bite.
+            {t('keepAway')}
           </Text>
           <Pressable
             style={styles.warningButton}
             onPress={() => router.navigate('/first-aid')}
             accessibilityRole="button"
           >
-            <Text style={styles.warningButtonText}>See first aid steps</Text>
+            <Text style={styles.warningButtonText}>{t("seeFirstAid")}</Text>
           </Pressable>
         </View>
       )}
 
-      <Text style={[styles.description, { color: theme.text }]}>{snake.description}</Text>
+      {language !== 'en' && !details.complete && <Text style={[styles.meta, { color: theme.muted, paddingHorizontal: 16 }]}>{t('translationPending')}</Text>}
+      <Text style={[styles.description, { color: theme.text }]}>{details.description}</Text>
 
       <View style={styles.statsRow}>
         <View style={[styles.stat, { backgroundColor: theme.card, borderColor: theme.border }]}>
           <Text style={[styles.statValue, { color: theme.text }]}>{snake.avgLengthCm} cm</Text>
-          <Text style={[styles.statLabel, { color: theme.muted }]}>Average length</Text>
+          <Text style={[styles.statLabel, { color: theme.muted }]}>{t("averageLength")}</Text>
         </View>
         <View style={[styles.stat, { backgroundColor: theme.card, borderColor: theme.border }]}>
           <Text style={[styles.statValue, { color: theme.text }]}>{snake.maxLengthCm} cm</Text>
-          <Text style={[styles.statLabel, { color: theme.muted }]}>Maximum length</Text>
+          <Text style={[styles.statLabel, { color: theme.muted }]}>{t("maximumLength")}</Text>
         </View>
         <View style={[styles.stat, { backgroundColor: theme.card, borderColor: theme.border }]}>
-          <Text style={[styles.statValueSmall, { color: theme.text }]}>{ACTIVE_LABEL[snake.activeTime]}</Text>
-          <Text style={[styles.statLabel, { color: theme.muted }]}>Active</Text>
+          <Text style={[styles.statValueSmall, { color: theme.text }]}>{t(activeTranslationKey(snake.activeTime))}</Text>
+          <Text style={[styles.statLabel, { color: theme.muted }]}>{t("active")}</Text>
         </View>
       </View>
 
-      <Section title="How to identify it">
-        <Text style={[styles.body, { color: theme.text }]}>{snake.pattern}</Text>
-        {snake.keyFeatures.map((f) => (
+      <Section title={t("howIdentify")}>
+        <Text style={[styles.body, { color: theme.text }]}>{details.pattern}</Text>
+        {details.keyFeatures.map((f) => (
           <Text key={f} style={[styles.bullet, { color: theme.text }]}>
             • {f}
           </Text>
         ))}
-        <Text style={[styles.meta, { color: theme.muted }]}>Colours: {snake.colours.join(', ')}</Text>
+        <Text style={[styles.meta, { color: theme.muted }]}>{t('colours')}: {snake.colours.map(c => localTerm(c, language)).join(', ')}</Text>
       </Section>
 
-      <Section title="Habitat and distribution">
+      <Section title={t("habitatDistribution")}>
         <View style={styles.chipWrap}>
           {snake.habitats.map((h) => (
             <View key={h} style={[styles.tag, { backgroundColor: theme.soft }]}>
-              <Text style={[styles.tagText, { color: theme.text }]}>{h}</Text>
+              <Text style={[styles.tagText, { color: theme.text }]}>{localTerm(h, language) === h ? localizedHabitat(h, t) : localTerm(h, language)}</Text>
             </View>
           ))}
         </View>
-        <Text style={[styles.meta, { color: theme.muted }]}>Provinces: {snake.provinces.join(', ')}</Text>
+        <Text style={[styles.meta, { color: theme.muted }]}>{t('provinces')}: {snake.provinces.map(p => localTerm(p, language)).join(', ')}</Text>
       </Section>
 
-      <Section title="Behaviour">
-        <Text style={[styles.body, { color: theme.text }]}>{snake.behaviour}</Text>
+      <Section title={t("behaviour")}>
+        <Text style={[styles.body, { color: theme.text }]}>{details.behaviour}</Text>
       </Section>
 
       {snake.venomous && (
-        <Section title="Venom and bite symptoms">
-          <Text style={[styles.body, { color: theme.text }]}>Venom type: {snake.venomType}</Text>
-          {snake.biteSymptoms.map((s) => (
+        <Section title={t("venomSymptoms")}>
+          <Text style={[styles.body, { color: theme.text }]}>{t('venomType')}: {details.venomType}</Text>
+          {details.biteSymptoms.map((s) => (
             <Text key={s} style={[styles.bullet, { color: theme.text }]}>
               • {s}
             </Text>
@@ -160,13 +182,13 @@ export default function SnakeDetailScreen() {
       )}
 
       {lookAlikes.length > 0 && (
-        <Section title="Look-alikes">
-          <Text style={[styles.body, { color: theme.text }]}>Often confused with these species:</Text>
+        <Section title={t("lookAlikes")}>
+          <Text style={[styles.body, { color: theme.text }]}>{t("oftenConfused")}</Text>
           <View style={styles.chipWrap}>
             {lookAlikes.map((l) => (
               <Chip
                 key={l.id}
-                label={l.name}
+                label={snakeDisplayName(l, language)}
                 onPress={() => router.push({ pathname: '/snake/[id]', params: { id: l.id } })}
               />
             ))}
@@ -183,7 +205,7 @@ export default function SnakeDetailScreen() {
           >
             <View style={styles.row}>
               <Icon name="git-compare-outline" size={18} color={theme.text} />
-              <Text style={[styles.secondaryText, { color: theme.text }]}>Compare with {lookAlikes[0].name}</Text>
+              <Text style={[styles.secondaryText, { color: theme.text }]}>{t('compareWith')} {snakeDisplayName(lookAlikes[0], language)}</Text>
             </View>
           </Pressable>
         </Section>
@@ -198,7 +220,7 @@ export default function SnakeDetailScreen() {
           <View style={styles.row}>
             <Icon name={favourite ? 'heart' : 'heart-outline'} size={19} color={favourite ? colors.danger : colors.canopy} />
             <Text style={[styles.actionText, { color: theme.text }, favourite && { color: theme.dangerText }]}>
-              {favourite ? 'Saved to favourites' : 'Add to favourites'}
+              {favourite ? t('savedFavourites') : t('addFavourites')}
             </Text>
           </View>
         </Pressable>
@@ -209,7 +231,7 @@ export default function SnakeDetailScreen() {
         >
           <View style={styles.row}>
             <Icon name="location" size={19} color={colors.white} />
-            <Text style={styles.primaryActionText}>Log a sighting</Text>
+            <Text style={styles.primaryActionText}>{t('logASighting')}</Text>
           </View>
         </Pressable>
       </View>

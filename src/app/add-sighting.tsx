@@ -18,10 +18,12 @@ import {
   OptionPicker,
   type Option,
 } from '@/components/option-picker';
-import { useAppTheme, themeColors } from '@/context/app-theme';
 import { palette } from '@/constants/palette';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { sightingTranslations } from '@/data/sightingTranslations';
+import { themeColors, useAppTheme } from '@/context/app-theme';
 import type { Sighting } from '@/types/sighting';
-import { displaySavedAt, displayObservationTime } from '@/utils/sighting-time';
+import { displayObservationTime, displaySavedAt } from '@/utils/sighting-time';
 import { districts, getSnake, snakes } from '@/utils/snakes';
 import { loadSightings, saveSightings } from '@/utils/storage';
 
@@ -75,6 +77,8 @@ function validDate(value: string) {
 
 export default function AddSightingScreen() {
   const { colors } = useAppTheme();
+  const { language } = useLanguage();
+  const tr = sightingTranslations[language as keyof typeof sightingTranslations] ?? sightingTranslations.en;
   const styles = useMemo(() => makeStyles(colors), [colors]);
   const params = useLocalSearchParams<{
     mode?: string;
@@ -140,7 +144,7 @@ export default function AddSightingScreen() {
 
         if (!found) {
           setErrors({
-            save: 'This sighting could not be found.',
+            save: tr.notFound,
           });
           return;
         }
@@ -169,7 +173,7 @@ export default function AddSightingScreen() {
       .catch(() => {
         if (active) {
           setErrors({
-            save: 'Unable to load the selected sighting.',
+            save: tr.loadError,
           });
         }
       })
@@ -180,7 +184,7 @@ export default function AddSightingScreen() {
     return () => {
       active = false;
     };
-  }, [mode, params.id]);
+  }, [mode, params.id, tr]);
 
   const speciesOptions: Option[] = useMemo(
     () =>
@@ -197,9 +201,9 @@ export default function AddSightingScreen() {
       districts.map((item) => ({
         key: item.name,
         label: item.name,
-        sub: `${item.province} Province`,
+        sub: `${item.province} ${tr.province}`,
       })),
-    []
+    [tr.province]
   );
 
   const pickImage = async () => {
@@ -229,7 +233,7 @@ export default function AddSightingScreen() {
       if (!asset.base64) {
         setErrors((previous) => ({
           ...previous,
-          photo: 'Unable to read this picture.',
+          photo: tr.readPhoto,
         }));
         return;
       }
@@ -238,7 +242,7 @@ export default function AddSightingScreen() {
         setErrors((previous) => ({
           ...previous,
           photo:
-            'Picture is too large. Choose a smaller image.',
+            tr.largePhoto,
         }));
         return;
       }
@@ -254,7 +258,7 @@ export default function AddSightingScreen() {
     } catch {
       setErrors((previous) => ({
         ...previous,
-        photo: 'Unable to import picture.',
+        photo: tr.importError,
       }));
     } finally {
       setImporting(false);
@@ -266,7 +270,7 @@ export default function AddSightingScreen() {
 
     if (mode !== 'add' && !original) {
       setErrors({
-        save: 'Original sighting was not found.',
+        save: tr.originalMissing,
       });
       return;
     }
@@ -274,27 +278,27 @@ export default function AddSightingScreen() {
     const next: FormErrors = {};
 
     if (!species) {
-      next.species = 'Please select a snake species.';
+      next.species = tr.selectSpecies;
     }
 
     if (!district) {
-      next.district = 'Please select a district.';
+      next.district = tr.selectDistrict;
     }
 
     if (!validDate(date.trim())) {
       next.date =
-        'Enter a valid date in YYYY-MM-DD format.';
+        tr.invalidDate;
     }
 
     if (!validTime(observedTime.trim())) {
-      next.observedTime = 'Enter time in HH:mm (24-hour) format, e.g. 08:30 or 17:45.';
+      next.observedTime = tr.invalidTime;
     }
 
     if (validDate(date.trim()) && validTime(observedTime.trim())) {
       const [year, month, day] = date.trim().split('-').map(Number);
       const [hour, minute] = observedTime.trim().split(':').map(Number);
       if (new Date(year, month - 1, day, hour, minute).getTime() > Date.now()) {
-        next.observedTime = 'Observation time cannot be in the future.';
+        next.observedTime = tr.futureTime;
       }
     }
 
@@ -355,7 +359,7 @@ export default function AddSightingScreen() {
     } catch {
       setErrors({
         save:
-          'Unable to save sighting. Check available storage.',
+          tr.saveError,
       });
     } finally {
       setSaving(false);
@@ -364,17 +368,17 @@ export default function AddSightingScreen() {
 
   const title =
     mode === 'edit'
-      ? '✏️ Edit Sighting'
+      ? tr.editTitle
       : mode === 'repeat'
-        ? '🔁 Record Again'
-        : '📍 Add Snake Sighting';
+        ? tr.repeatTitle
+        : tr.addTitle;
 
   const buttonText =
     mode === 'edit'
-      ? 'Save Changes'
+      ? tr.saveChanges
       : mode === 'repeat'
-        ? 'Save New Observation'
-        : 'Save Sighting';
+        ? tr.saveNew
+        : tr.saveSighting;
 
   if (loading) {
     return (
@@ -384,7 +388,7 @@ export default function AddSightingScreen() {
           color={colors.primary}
         />
         <Text style={styles.hint}>
-          Loading sighting...
+          {tr.loading}
         </Text>
       </View>
     );
@@ -400,30 +404,30 @@ export default function AddSightingScreen() {
 
       <Text style={styles.hint}>
         {mode === 'edit'
-          ? 'Update the existing observation. Its original record will be preserved.'
+          ? tr.editHint
           : mode === 'repeat'
-            ? 'Species and location are copied from the previous observation. Add a new date, notes and picture.'
-            : 'Record a snake observation safely. Information is saved locally.'}
+            ? tr.repeatHint
+            : tr.addHint}
       </Text>
 
       {mode === 'repeat' && original && (
         <View style={styles.info}>
           <Text style={styles.infoText}>
-            Previous observation: {original.date}
+            {tr.previous} {original.date}
           </Text>
           <Text style={styles.infoText}>
-            A separate sighting will be created.
+            {tr.separate}
           </Text>
         </View>
       )}
 
       <OptionPicker
-        label="Species *"
-        placeholder="Search snake species..."
+        label={tr.species}
+        placeholder={tr.searchSpecies}
         options={speciesOptions}
         extraOption={{
           key: UNKNOWN,
-          label: "Unknown snake (I'm not sure)",
+          label: tr.unknownOption,
         }}
         value={species}
         onChange={setSpecies}
@@ -432,36 +436,35 @@ export default function AddSightingScreen() {
 
       {species === UNKNOWN && (
         <View style={styles.field}>
-          <Text style={styles.label}>Local name or nickname (optional)</Text>
+          <Text style={styles.label}>{tr.localName}</Text>
           <TextInput
             style={styles.input}
             value={localName}
             onChangeText={setLocalName}
-            placeholder="Name used in your area, if known"
+            placeholder={tr.localPlaceholder}
             placeholderTextColor={colors.muted}
             maxLength={100}
           />
-          <Text style={styles.label}>Appearance / description (optional)</Text>
+          <Text style={styles.label}>{tr.appearance}</Text>
           <TextInput
             style={[styles.input, styles.multiline]}
             value={description}
             onChangeText={setDescription}
-            placeholder="Colour, pattern, approximate size, behaviour..."
+            placeholder={tr.appearancePlaceholder}
             placeholderTextColor={colors.muted}
             multiline
             textAlignVertical="top"
             maxLength={1000}
           />
           <Text style={styles.hint}>
-            You can add a picture below. Do not approach or handle a snake to take a photo.
-            Identification remains unconfirmed until verified by a qualified expert.
+            {tr.unknownHint}
           </Text>
         </View>
       )}
 
       <OptionPicker
-        label="District *"
-        placeholder="Search district..."
+        label={tr.district}
+        placeholder={tr.searchDistrict}
         options={districtOptions}
         value={district}
         onChange={setDistrict}
@@ -470,7 +473,7 @@ export default function AddSightingScreen() {
 
       <View style={styles.field}>
         <Text style={styles.label}>
-          Date * (YYYY-MM-DD)
+          {tr.date}
         </Text>
 
         <TextInput
@@ -489,48 +492,48 @@ export default function AddSightingScreen() {
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Observation Time * (HH:mm, 24-hour)</Text>
+        <Text style={styles.label}>{tr.time}</Text>
         <TextInput
           style={styles.input}
           value={observedTime}
           onChangeText={setObservedTime}
-          placeholder="e.g. 08:30 or 17:45"
+          placeholder={tr.timePlaceholder}
           placeholderTextColor={colors.muted}
           maxLength={5}
           keyboardType="numbers-and-punctuation"
         />
-        <Text style={styles.hint}>Time you actually saw the snake: {displayObservationTime(observedTime)}</Text>
+        <Text style={styles.hint}>{tr.timeSeen} {displayObservationTime(observedTime)}</Text>
         {!!errors.observedTime && <Text style={styles.error}>{errors.observedTime}</Text>}
       </View>
 
       {mode === 'edit' && original && (
-        <Text style={styles.hint}>Originally saved: {displaySavedAt(original.savedAt)}</Text>
+        <Text style={styles.hint}>{tr.originallySaved} {displaySavedAt(original.savedAt)}</Text>
       )}
 
       <View style={styles.field}>
         <Text style={styles.label}>
-          Location Note
+          {tr.location}
         </Text>
 
         <TextInput
           style={styles.input}
           value={location}
           onChangeText={setLocation}
-          placeholder="e.g. University garden"
+          placeholder={tr.locationPlaceholder}
           placeholderTextColor={colors.muted}
         />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>
-          Behaviour Note
+          {tr.behaviour}
         </Text>
 
         <TextInput
           style={[styles.input, styles.multiline]}
           value={notes}
           onChangeText={setNotes}
-          placeholder="What did you observe?"
+          placeholder={tr.behaviourPlaceholder}
           placeholderTextColor={colors.muted}
           multiline
           textAlignVertical="top"
@@ -539,7 +542,7 @@ export default function AddSightingScreen() {
 
       <View style={styles.photoSection}>
         <Text style={styles.label}>
-          📷 Sighting Picture (Optional)
+          {tr.picture}
         </Text>
 
         <Pressable
@@ -549,10 +552,10 @@ export default function AddSightingScreen() {
         >
           <Text style={styles.photoButtonText}>
             {importing
-              ? 'Importing...'
+              ? tr.importing
               : photoUri
-                ? 'Change Picture'
-                : 'Import Picture'}
+                ? tr.changePicture
+                : tr.importPicture}
           </Text>
         </Pressable>
 
@@ -568,7 +571,7 @@ export default function AddSightingScreen() {
               onPress={() => setPhotoUri(null)}
             >
               <Text style={styles.removeText}>
-                Remove Picture
+                {tr.removePicture}
               </Text>
             </Pressable>
           </View>
@@ -596,7 +599,7 @@ export default function AddSightingScreen() {
         disabled={saving || importing}
       >
         <Text style={styles.saveText}>
-          {saving ? 'Saving...' : buttonText}
+          {saving ? tr.saving : buttonText}
         </Text>
       </Pressable>
 
@@ -605,15 +608,13 @@ export default function AddSightingScreen() {
         onPress={() => router.replace('/sightings')}
       >
         <Text style={styles.cancelText}>
-          Cancel
+          {tr.cancel}
         </Text>
       </Pressable>
 
       <View style={styles.info}>
         <Text style={styles.infoText}>
-          ⚠️ Never approach or handle a snake to
-          photograph it. If unsure of the species,
-          select Unknown snake.
+          {tr.warning}
         </Text>
       </View>
     </ScrollView>

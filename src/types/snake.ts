@@ -9,6 +9,11 @@ export type Snake = {
   sinhalaRoman: string;
   tamilName: string;
   tamilRoman: string;
+  // Other Tamil names in use (Sri Lankan and Tamil Nadu variants), shown and searchable.
+  tamilOtherNames?: string[];
+  // True when no established Tamil common name was found and tamilName is a
+  // descriptive Tamil name built from Tamil words (not a transliteration).
+  tamilNameDescriptive?: boolean;
   scientificName: string;
   family: string;
   venomous: boolean;
