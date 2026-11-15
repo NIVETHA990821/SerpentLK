@@ -1,0 +1,127 @@
+[
+  {
+    "id": "ampara",
+    "name": "Ampara",
+    "province": "Eastern"
+  },
+  {
+    "id": "anuradhapura",
+    "name": "Anuradhapura",
+    "province": "North Central"
+  },
+  {
+    "id": "badulla",
+    "name": "Badulla",
+    "province": "Uva"
+  },
+  {
+    "id": "batticaloa",
+    "name": "Batticaloa",
+    "province": "Eastern"
+  },
+  {
+    "id": "colombo",
+    "name": "Colombo",
+    "province": "Western"
+  },
+  {
+    "id": "galle",
+    "name": "Galle",
+    "province": "Southern"
+  },
+  {
+    "id": "gampaha",
+    "name": "Gampaha",
+    "province": "Western"
+  },
+  {
+    "id": "hambantota",
+    "name": "Hambantota",
+    "province": "Southern"
+  },
+  {
+    "id": "jaffna",
+    "name": "Jaffna",
+    "province": "Northern"
+  },
+  {
+    "id": "kalutara",
+    "name": "Kalutara",
+    "province": "Western"
+  },
+  {
+    "id": "kandy",
+    "name": "Kandy",
+    "province": "Central"
+  },
+  {
+    "id": "kegalle",
+    "name": "Kegalle",
+    "province": "Sabaragamuwa"
+  },
+  {
+    "id": "kilinochchi",
+    "name": "Kilinochchi",
+    "province": "Northern"
+  },
+  {
+    "id": "kurunegala",
+    "name": "Kurunegala",
+    "province": "North Western"
+  },
+  {
+    "id": "mannar",
+    "name": "Mannar",
+    "province": "Northern"
+  },
+  {
+    "id": "matale",
+    "name": "Matale",
+    "province": "Central"
+  },
+  {
+    "id": "matara",
+    "name": "Matara",
+    "province": "Southern"
+  },
+  {
+    "id": "monaragala",
+    "name": "Monaragala",
+    "province": "Uva"
+  },
+  {
+    "id": "mullaitivu",
+    "name": "Mullaitivu",
+    "province": "Northern"
+  },
+  {
+    "id": "nuwara-eliya",
+    "name": "Nuwara Eliya",
+    "province": "Central"
+  },
+  {
+    "id": "polonnaruwa",
+    "name": "Polonnaruwa",
+    "province": "North Central"
+  },
+  {
+    "id": "puttalam",
+    "name": "Puttalam",
+    "province": "North Western"
+  },
+  {
+    "id": "ratnapura",
+    "name": "Ratnapura",
+    "province": "Sabaragamuwa"
+  },
+  {
+    "id": "trincomalee",
+    "name": "Trincomalee",
+    "province": "Eastern"
+  },
+  {
+    "id": "vavuniya",
+    "name": "Vavuniya",
+    "province": "Northern"
+  }
+]

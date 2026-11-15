@@ -63,3 +63,55 @@ export const Spacing = {
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;
+
+// ─── SerpentLK design system ────────────────────────────────────────────────
+// A calm "field guide" look: deep rainforest greens, warm paper background and
+// a turmeric accent. Danger colours are reserved for venom and first aid so
+// they always stand out.
+
+export const colors = {
+  canopy: '#123528', // headers, primary buttons
+  canopyDeep: '#0B241B',
+  leaf: '#2F7D52', // icons, links, progress
+  moss: '#E3EEE6', // soft green fills
+  mist: '#F4F5F0', // screen background
+  card: '#FFFFFF',
+  line: '#E1E6DF',
+  ink: '#15201A',
+  muted: '#5C6A62',
+  faint: '#98A49C',
+  white: '#FFFFFF',
+  turmeric: '#E0A11B',
+  turmericBg: '#FCF1D6',
+  danger: '#B42318',
+  dangerBg: '#FDECEA',
+  caution: '#B45309',
+  cautionBg: '#FEF3E2',
+  safe: '#1E7A46',
+  safeBg: '#E4F4EA',
+  overlay: 'rgba(8, 24, 17, 0.55)',
+} as const;
+
+export const radius = { sm: 8, md: 14, lg: 20, xl: 28, pill: 999 } as const;
+
+export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const;
+
+export const type = {
+  display: { fontSize: 30, lineHeight: 36, fontWeight: '800' as const, letterSpacing: -0.5 },
+  title: { fontSize: 24, lineHeight: 30, fontWeight: '800' as const, letterSpacing: -0.3 },
+  heading: { fontSize: 18, lineHeight: 24, fontWeight: '700' as const },
+  body: { fontSize: 16, lineHeight: 24, fontWeight: '400' as const },
+  bodyStrong: { fontSize: 16, lineHeight: 22, fontWeight: '600' as const },
+  small: { fontSize: 14, lineHeight: 20, fontWeight: '400' as const },
+  caption: { fontSize: 12, lineHeight: 16, fontWeight: '600' as const },
+  overline: { fontSize: 11, lineHeight: 14, fontWeight: '700' as const, letterSpacing: 1.2, textTransform: 'uppercase' as const },
+};
+
+// Soft, low elevation so cards lift off the background without looking heavy.
+export const shadow = Platform.select({
+  ios: { shadowColor: '#0B241B', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 } },
+  android: { elevation: 2 },
+  default: { boxShadow: '0 4px 14px rgba(11, 36, 27, 0.08)' },
+}) as object;
+
+export const MAX_WIDTH = 720;

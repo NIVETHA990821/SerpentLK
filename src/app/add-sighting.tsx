@@ -1,115 +1,360 @@
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from 'expo-router';
-import { useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
-    Alert,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 
+import {
+  OptionPicker,
+  type Option,
+} from '@/components/option-picker';
+import { useAppTheme, themeColors } from '@/context/app-theme';
+import { palette } from '@/constants/palette';
 import type { Sighting } from '@/types/sighting';
+import { districts, getSnake, snakes } from '@/utils/snakes';
+import { loadSightings, saveSightings } from '@/utils/storage';
 
-const STORAGE_KEY = '@serpentlk_sightings';
+const UNKNOWN = 'unknown';
+const MAX_IMAGE_LENGTH = 900000;
 
-function getTodayDate() {
+type FormMode = 'add' | 'edit' | 'repeat';
+
+type FormErrors = {
+  species?: string;
+  district?: string;
+  date?: string;
+  photo?: string;
+  save?: string;
+};
+
+function today() {
   const now = new Date();
-  const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
 
-  return `${year}-${month}-${day}`;
+  return `${now.getFullYear()}-${month}-${day}`;
 }
 
-function isValidDate(value: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return false;
-  }
+function validDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
 
   const [year, month, day] = value.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
+  const parsed = new Date(year, month - 1, day);
+
+  const todayDate = new Date();
+  todayDate.setHours(23, 59, 59, 999);
 
   return (
-    date.getFullYear() === year &&
-    date.getMonth() === month - 1 &&
-    date.getDate() === day &&
-    date <= new Date()
+    parsed.getFullYear() === year &&
+    parsed.getMonth() === month - 1 &&
+    parsed.getDate() === day &&
+    parsed <= todayDate
   );
 }
 
 export default function AddSightingScreen() {
-  const [snakeName, setSnakeName] = useState('');
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => makeStyles(colors), [colors]);
+  const params = useLocalSearchParams<{
+    mode?: string;
+    id?: string;
+    snakeId?: string;
+  }>();
+
+  const mode: FormMode =
+    params.mode === 'edit'
+      ? 'edit'
+      : params.mode === 'repeat'
+        ? 'repeat'
+        : 'add';
+
+  const [loading, setLoading] = useState(
+    mode !== 'add'
+  );
+
+  const [original, setOriginal] = useState<Sighting | null>(
+    null
+  );
+
+  const [species, setSpecies] = useState<string | null>(
+    getSnake(params.snakeId)?.id ?? null
+  );
+
+  const [district, setDistrict] = useState<string | null>(
+    null
+  );
+
+  const [date, setDate] = useState(today());
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState(getTodayDate());
   const [notes, setNotes] = useState('');
+
+  const [photoUri, setPhotoUri] = useState<string | null>(
+    null
+  );
+
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
+  const [importing, setImporting] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const saveSighting = async () => {
-    if (saving) return;
+  useEffect(() => {
+    let active = true;
 
-    setError('');
-
-    if (!snakeName.trim() || !location.trim() || !date.trim()) {
-      setError('Please fill in all required fields.');
+    if (mode === 'add') {
+      setLoading(false);
       return;
     }
 
-    if (!isValidDate(date.trim())) {
-      setError('Enter a valid date in YYYY-MM-DD format. Future dates are not allowed.');
+    setLoading(true);
+
+    loadSightings()
+      .then((records) => {
+        if (!active) return;
+
+        const found = records.find(
+          (item) => item.id === params.id
+        );
+
+        if (!found) {
+          setErrors({
+            save: 'This sighting could not be found.',
+          });
+          return;
+        }
+
+        setOriginal(found);
+
+        setSpecies(found.snakeId ?? UNKNOWN);
+        setDistrict(found.district ?? null);
+        setLocation(found.location ?? '');
+
+        if (mode === 'edit') {
+          setDate(found.date);
+          setNotes(found.notes ?? '');
+          setPhotoUri(found.photoUri ?? null);
+        } else {
+          // Repeat means a new observation.
+          setDate(today());
+          setNotes('');
+          setPhotoUri(null);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setErrors({
+            save: 'Unable to load the selected sighting.',
+          });
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [mode, params.id]);
+
+  const speciesOptions: Option[] = useMemo(
+    () =>
+      snakes.map((snake) => ({
+        key: snake.id,
+        label: snake.name,
+        sub: snake.scientificName,
+      })),
+    []
+  );
+
+  const districtOptions: Option[] = useMemo(
+    () =>
+      districts.map((item) => ({
+        key: item.name,
+        label: item.name,
+        sub: `${item.province} Province`,
+      })),
+    []
+  );
+
+  const pickImage = async () => {
+    if (saving || importing) return;
+
+    setImporting(true);
+    setErrors((previous) => ({
+      ...previous,
+      photo: undefined,
+    }));
+
+    try {
+      const result =
+        await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ['images'],
+          allowsEditing: false,
+          quality: 0.25,
+          base64: true,
+        });
+
+      if (result.canceled || !result.assets.length) {
+        return;
+      }
+
+      const asset = result.assets[0];
+
+      if (!asset.base64) {
+        setErrors((previous) => ({
+          ...previous,
+          photo: 'Unable to read this picture.',
+        }));
+        return;
+      }
+
+      if (asset.base64.length > MAX_IMAGE_LENGTH) {
+        setErrors((previous) => ({
+          ...previous,
+          photo:
+            'Picture is too large. Choose a smaller image.',
+        }));
+        return;
+      }
+
+      const mime =
+        asset.mimeType?.startsWith('image/')
+          ? asset.mimeType
+          : 'image/jpeg';
+
+      setPhotoUri(
+        `data:${mime};base64,${asset.base64}`
+      );
+    } catch {
+      setErrors((previous) => ({
+        ...previous,
+        photo: 'Unable to import picture.',
+      }));
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  const save = async () => {
+    if (saving || importing || loading) return;
+
+    if (mode !== 'add' && !original) {
+      setErrors({
+        save: 'Original sighting was not found.',
+      });
       return;
     }
+
+    const next: FormErrors = {};
+
+    if (!species) {
+      next.species = 'Please select a snake species.';
+    }
+
+    if (!district) {
+      next.district = 'Please select a district.';
+    }
+
+    if (!validDate(date.trim())) {
+      next.date =
+        'Enter a valid date in YYYY-MM-DD format.';
+    }
+
+    setErrors(next);
+
+    if (Object.keys(next).length > 0) return;
 
     setSaving(true);
 
     try {
-      const storedData = await AsyncStorage.getItem(STORAGE_KEY);
+      const snake =
+        species === UNKNOWN
+          ? undefined
+          : getSnake(species ?? undefined);
 
-      let existingSightings: Sighting[] = [];
+      const records = await loadSightings();
 
-      if (storedData !== null) {
-        const parsedData: unknown = JSON.parse(storedData);
+      const record: Sighting = {
+        id:
+          mode === 'edit' && original
+            ? original.id
+            : `${Date.now()}-${Math.random()
+                .toString(36)
+                .slice(2, 9)}`,
 
-        if (!Array.isArray(parsedData)) {
-          throw new Error('Saved sightings are not in a valid format.');
-        }
-
-        existingSightings = parsedData as Sighting[];
-      }
-
-      const newSighting: Sighting = {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
-        snakeName: snakeName.trim(),
-        location: location.trim(),
+        snakeId: snake?.id,
+        snakeName: snake?.name ?? 'Unknown snake',
+        district: district ?? undefined,
         date: date.trim(),
+        location: location.trim(),
         notes: notes.trim(),
+        photoUri: photoUri ?? undefined,
       };
 
-      const updatedSightings = [newSighting, ...existingSightings];
+      if (mode === 'edit') {
+        const exists = records.some(
+          (item) => item.id === original?.id
+        );
 
-      await AsyncStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(updatedSightings)
-      );
+        if (!exists) {
+          throw new Error('Original record not found');
+        }
 
-      if (Platform.OS !== 'web') {
-        Alert.alert('Success', 'Your sighting has been saved.');
+        await saveSightings(
+          records.map((item) =>
+            item.id === original?.id ? record : item
+          )
+        );
+      } else {
+        await saveSightings([record, ...records]);
       }
 
       router.replace('/sightings');
-    } catch (err) {
-      console.error('Failed to save sighting:', err);
-      setError('Unable to save your sighting. Please try again.');
+    } catch {
+      setErrors({
+        save:
+          'Unable to save sighting. Check available storage.',
+      });
     } finally {
       setSaving(false);
     }
   };
+
+  const title =
+    mode === 'edit'
+      ? '✏️ Edit Sighting'
+      : mode === 'repeat'
+        ? '🔁 Record Again'
+        : '📍 Add Snake Sighting';
+
+  const buttonText =
+    mode === 'edit'
+      ? 'Save Changes'
+      : mode === 'repeat'
+        ? 'Save New Observation'
+        : 'Save Sighting';
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator
+          size="large"
+          color={colors.primary}
+        />
+        <Text style={styles.hint}>
+          Loading sighting...
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView
@@ -117,223 +362,304 @@ export default function AddSightingScreen() {
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={styles.heading}>Add New Sighting</Text>
+      <Text style={styles.heading}>{title}</Text>
 
-      <Text style={styles.subtitle}>
-        Record a snake you observed from a safe distance.
-        Your information will be saved locally.
+      <Text style={styles.hint}>
+        {mode === 'edit'
+          ? 'Update the existing observation. Its original record will be preserved.'
+          : mode === 'repeat'
+            ? 'Species and location are copied from the previous observation. Add a new date, notes and picture.'
+            : 'Record a snake observation safely. Information is saved locally.'}
       </Text>
 
-      <View style={styles.formCard}>
-        <Text style={styles.label}>Snake Name *</Text>
+      {mode === 'repeat' && original && (
+        <View style={styles.info}>
+          <Text style={styles.infoText}>
+            Previous observation: {original.date}
+          </Text>
+          <Text style={styles.infoText}>
+            A separate sighting will be created.
+          </Text>
+        </View>
+      )}
+
+      <OptionPicker
+        label="Species *"
+        placeholder="Search snake species..."
+        options={speciesOptions}
+        extraOption={{
+          key: UNKNOWN,
+          label: "Unknown snake (I'm not sure)",
+        }}
+        value={species}
+        onChange={setSpecies}
+        error={errors.species}
+      />
+
+      <OptionPicker
+        label="District *"
+        placeholder="Search district..."
+        options={districtOptions}
+        value={district}
+        onChange={setDistrict}
+        error={errors.district}
+      />
+
+      <View style={styles.field}>
+        <Text style={styles.label}>
+          Date * (YYYY-MM-DD)
+        </Text>
 
         <TextInput
           style={styles.input}
-          placeholder="e.g. Indian Cobra or Unknown"
-          placeholderTextColor="#888888"
-          value={snakeName}
-          onChangeText={setSnakeName}
-          maxLength={100}
-        />
-
-        <Text style={styles.label}>Location *</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. Home garden"
-          placeholderTextColor="#888888"
-          value={location}
-          onChangeText={setLocation}
-          maxLength={150}
-        />
-
-        <Text style={styles.label}>Date *</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="YYYY-MM-DD"
-          placeholderTextColor="#888888"
           value={date}
           onChangeText={setDate}
           maxLength={10}
+          keyboardType="numbers-and-punctuation"
         />
 
-        <Text style={styles.helperText}>
-          Format: YYYY-MM-DD (example: 2026-11-10)
+        {!!errors.date && (
+          <Text style={styles.error}>
+            {errors.date}
+          </Text>
+        )}
+      </View>
+
+      <View style={styles.field}>
+        <Text style={styles.label}>
+          Location Note
         </Text>
 
-        <Text style={styles.label}>Notes (Optional)</Text>
+        <TextInput
+          style={styles.input}
+          value={location}
+          onChangeText={setLocation}
+          placeholder="e.g. University garden"
+          placeholderTextColor={colors.muted}
+        />
+      </View>
+
+      <View style={styles.field}>
+        <Text style={styles.label}>
+          Behaviour Note
+        </Text>
 
         <TextInput
-          style={[styles.input, styles.notesInput]}
-          placeholder="Describe what you observed..."
-          placeholderTextColor="#888888"
+          style={[styles.input, styles.multiline]}
           value={notes}
           onChangeText={setNotes}
+          placeholder="What did you observe?"
+          placeholderTextColor={colors.muted}
           multiline
           textAlignVertical="top"
-          maxLength={500}
         />
+      </View>
 
-        {error ? (
-          <Text style={styles.errorText}>{error}</Text>
-        ) : null}
+      <View style={styles.photoSection}>
+        <Text style={styles.label}>
+          📷 Sighting Picture (Optional)
+        </Text>
 
         <Pressable
-          style={({ pressed }) => [
-            styles.saveButton,
-            pressed && styles.pressedButton,
-            saving && styles.disabledButton,
-          ]}
-          onPress={saveSighting}
-          disabled={saving}
+          style={styles.photoButton}
+          onPress={pickImage}
+          disabled={saving || importing}
         >
-          <Text style={styles.saveButtonText}>
-            {saving ? 'Saving...' : 'Save Sighting'}
+          <Text style={styles.photoButtonText}>
+            {importing
+              ? 'Importing...'
+              : photoUri
+                ? 'Change Picture'
+                : 'Import Picture'}
           </Text>
         </Pressable>
 
-        <Pressable
-          style={styles.cancelButton}
-          onPress={() => router.replace('/sightings')}
-          disabled={saving}
-        >
-          <Text style={styles.cancelButtonText}>Cancel</Text>
-        </Pressable>
+        {photoUri && (
+          <View style={styles.previewArea}>
+            <Image
+              source={{ uri: photoUri }}
+              style={styles.preview}
+              resizeMode="contain"
+            />
+
+            <Pressable
+              onPress={() => setPhotoUri(null)}
+            >
+              <Text style={styles.removeText}>
+                Remove Picture
+              </Text>
+            </Pressable>
+          </View>
+        )}
+
+        {!!errors.photo && (
+          <Text style={styles.error}>
+            {errors.photo}
+          </Text>
+        )}
       </View>
 
-      <View style={styles.notice}>
-        <Text style={styles.noticeTitle}>Safety Reminder</Text>
+      {!!errors.save && (
+        <Text style={styles.error}>
+          {errors.save}
+        </Text>
+      )}
 
-        <Text style={styles.noticeText}>
-          Never approach, touch or capture a snake to record
-          a sighting. If you cannot identify it confidently,
-          enter "Unknown" instead of guessing.
+      <Pressable
+        style={[
+          styles.saveButton,
+          (saving || importing) && styles.disabled,
+        ]}
+        onPress={save}
+        disabled={saving || importing}
+      >
+        <Text style={styles.saveText}>
+          {saving ? 'Saving...' : buttonText}
+        </Text>
+      </Pressable>
+
+      <Pressable
+        style={styles.cancelButton}
+        onPress={() => router.replace('/sightings')}
+      >
+        <Text style={styles.cancelText}>
+          Cancel
+        </Text>
+      </Pressable>
+
+      <View style={styles.info}>
+        <Text style={styles.infoText}>
+          ⚠️ Never approach or handle a snake to
+          photograph it. If unsure of the species,
+          select Unknown snake.
         </Text>
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+const makeStyles = (c: typeof themeColors.light) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F1F8E9',
+    backgroundColor: c.background,
   },
-
   content: {
-    padding: 20,
-    paddingBottom: 40,
+    padding: 16,
+    paddingBottom: 45,
+    gap: 16,
   },
-
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: c.background,
+  },
   heading: {
-    fontSize: 27,
-    fontWeight: 'bold',
-    color: '#1B5E20',
-    marginBottom: 8,
+    fontSize: 24,
+    fontWeight: '800',
+    color: c.primary,
   },
-
-  subtitle: {
-    fontSize: 15,
-    color: '#555555',
-    lineHeight: 23,
-    marginBottom: 20,
+  hint: {
+    fontSize: 14,
+    color: c.muted,
+    lineHeight: 22,
   },
-
-  formCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 20,
+  field: {
+    gap: 7,
   },
-
   label: {
     fontSize: 15,
-    fontWeight: 'bold',
-    color: '#1B5E20',
-    marginBottom: 8,
-    marginTop: 12,
+    fontWeight: '700',
+    color: c.primary,
   },
-
   input: {
+    backgroundColor: c.card,
+    borderColor: c.border,
     borderWidth: 1,
-    borderColor: '#C8D6C9',
-    borderRadius: 9,
-    padding: 13,
-    fontSize: 15,
-    color: '#222222',
-    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    minHeight: 48,
+    paddingHorizontal: 14,
+    fontSize: 16,
+    color: c.text,
   },
-
-  notesInput: {
-    height: 110,
-    paddingTop: 13,
+  multiline: {
+    minHeight: 95,
+    paddingTop: 12,
   },
-
-  helperText: {
-    fontSize: 12,
-    color: '#777777',
-    marginTop: 6,
-  },
-
-  errorText: {
+  error: {
+    color: palette.highly,
     fontSize: 14,
-    color: '#B71C1C',
-    marginTop: 15,
-    lineHeight: 21,
   },
-
-  saveButton: {
-    backgroundColor: '#1B5E20',
-    padding: 16,
+  photoSection: {
+    backgroundColor: c.card,
+    borderWidth: 1,
+    borderColor: c.border,
+    padding: 15,
+    borderRadius: 12,
+    gap: 12,
+  },
+  photoButton: {
+    backgroundColor: c.primary,
+    padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 25,
   },
-
-  pressedButton: {
-    opacity: 0.7,
-  },
-
-  disabledButton: {
-    opacity: 0.5,
-  },
-
-  saveButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  cancelButton: {
-    padding: 15,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-
-  cancelButtonText: {
-    color: '#666666',
+  photoButtonText: {
+    color: c.white,
+    fontWeight: '700',
     fontSize: 15,
   },
-
-  notice: {
-    backgroundColor: '#E8F5E9',
-    borderWidth: 1,
-    borderColor: '#A5D6A7',
+  previewArea: {
+    gap: 10,
+  },
+  preview: {
+    width: '100%',
+    height: 230,
     borderRadius: 12,
-    padding: 18,
-    marginTop: 20,
+    backgroundColor: c.background,
   },
-
-  noticeTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1B5E20',
-    marginBottom: 8,
+  removeText: {
+    textAlign: 'center',
+    color: palette.highly,
+    fontWeight: '700',
   },
-
-  noticeText: {
-    fontSize: 13,
-    color: '#555555',
+  saveButton: {
+    backgroundColor: c.primary,
+    padding: 17,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  saveText: {
+    color: c.white,
+    fontSize: 17,
+    fontWeight: '700',
+  },
+  cancelButton: {
+    borderWidth: 1,
+    borderColor: c.border,
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  cancelText: {
+    color: c.primary,
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  info: {
+    backgroundColor: c.card,
+    padding: 15,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: c.border,
+    gap: 5,
+  },
+  infoText: {
+    color: c.muted,
     lineHeight: 21,
+    fontSize: 13,
   },
 });

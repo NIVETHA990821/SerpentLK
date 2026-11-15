@@ -1,4 +1,3 @@
-
 {
   "title": "Snakebite First-Aid Guide",
   "emergencyMessage": "Suspected snakebite? Seek emergency medical care immediately. Do not wait for symptoms.",
@@ -61,5 +60,8 @@
       "description": "Do not wait for symptoms, traditional remedies or online identification."
     }
   ],
-  "disclaimer": "Educational information only. This guide does not replace emergency medical care or professional advice."
+  "disclaimer": "Educational information only. This guide does not replace emergency medical care or professional advice.",
+  "emergencyNumber": "1990",
+  "emergencyName": "Suwa Seriya ambulance service",
+  "emergencyNote": "Free emergency ambulance service in Sri Lanka. Go to the nearest hospital even if you are unsure the snake was venomous."
 }

@@ -1,38 +1,1708 @@
-
 [
   {
-    "id": "1",
-    "name": "Indian Cobra",
-    "scientificName": "Naja naja",
-    "venomous": true,
-    "description": "A venomous cobra species found in Sri Lanka."
-  },
-  {
-    "id": "2",
+    "id": "russells-viper",
     "name": "Russell's Viper",
+    "sinhalaName": "ටික් පොලොන්ගා",
+    "sinhalaRoman": "Tic Polonga",
+    "tamilName": "கண்ணாடி விரியன்",
+    "tamilRoman": "Kannadi Viriyan",
     "scientificName": "Daboia russelii",
+    "family": "Viperidae",
     "venomous": true,
-    "description": "A venomous viper species found in Sri Lanka."
+    "venomLevel": "highly_venomous",
+    "venomType": "Haemotoxic, with some neurotoxic effects",
+    "avgLengthCm": 120,
+    "maxLengthCm": 165,
+    "colours": [
+      "brown",
+      "tan"
+    ],
+    "pattern": "Three rows of dark oval spots ringed with black and white",
+    "keyFeatures": [
+      "Flat triangular head with a V or X mark",
+      "Loud, long hiss when disturbed",
+      "Thick body with a short tail"
+    ],
+    "habitats": [
+      "paddy fields",
+      "grassland",
+      "scrub"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Slow moving but strikes very fast. Common around rice fields where rats gather, which makes it a leading cause of snakebite in farming areas.",
+    "description": "One of Sri Lanka's most dangerous snakes and a major cause of serious snakebite among farmers.",
+    "lookAlikes": [
+      "common-sand-boa"
+    ],
+    "biteSymptoms": [
+      "Severe pain and swelling",
+      "Bleeding from gums or the wound",
+      "Reduced urine output",
+      "Drooping eyelids"
+    ],
+    "endemic": false,
+    "image": "russells-viper"
   },
   {
-    "id": "3",
+    "id": "indian-cobra",
+    "name": "Indian Cobra",
+    "sinhalaName": "නයා",
+    "sinhalaRoman": "Naya",
+    "tamilName": "நாகப்பாம்பு",
+    "tamilRoman": "Naga Pambu",
+    "scientificName": "Naja naja",
+    "family": "Elapidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Neurotoxic, with local tissue damage",
+    "avgLengthCm": 150,
+    "maxLengthCm": 220,
+    "colours": [
+      "brown",
+      "black",
+      "yellow"
+    ],
+    "pattern": "Plain or faintly banded body; many have a spectacle mark on the hood",
+    "keyFeatures": [
+      "Spreads a broad hood when threatened",
+      "Smooth glossy scales",
+      "Spectacle or single-ring mark on the hood"
+    ],
+    "habitats": [
+      "gardens and villages",
+      "paddy fields",
+      "scrub",
+      "forest"
+    ],
+    "activeTime": "both",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Raises its front body and spreads its hood as a warning. It usually retreats if given space and is often found near villages and rat holes.",
+    "description": "A well-known venomous snake that spreads a hood when alarmed.",
+    "lookAlikes": [
+      "rat-snake",
+      "checkered-keelback"
+    ],
+    "biteSymptoms": [
+      "Pain and swelling at the bite",
+      "Drooping eyelids",
+      "Difficulty swallowing and speaking",
+      "Muscle weakness and breathing difficulty"
+    ],
+    "endemic": false,
+    "image": "indian-cobra"
+  },
+  {
+    "id": "common-krait",
     "name": "Common Krait",
+    "sinhalaName": "තෙල් කරවලා",
+    "sinhalaRoman": "Thel Karawala",
+    "tamilName": "கட்டு விரியன்",
+    "tamilRoman": "Kattu Viriyan",
     "scientificName": "Bungarus caeruleus",
+    "family": "Elapidae",
     "venomous": true,
-    "description": "A venomous krait species found in Sri Lanka."
+    "venomLevel": "highly_venomous",
+    "venomType": "Strongly neurotoxic",
+    "avgLengthCm": 90,
+    "maxLengthCm": 175,
+    "colours": [
+      "black",
+      "white"
+    ],
+    "pattern": "Glossy blue-black body with thin white cross-bands, often faint on the front half",
+    "keyFeatures": [
+      "Raised ridge of enlarged scales along the back",
+      "Blunt head barely wider than the neck",
+      "Active at night and often found indoors"
+    ],
+    "habitats": [
+      "gardens and villages",
+      "paddy fields",
+      "scrub"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Shy and slow-moving by day but dangerous at night. Bites often cause little pain, so victims may not realise how serious they are.",
+    "description": "A small but deadly snake. Bites can happen while people sleep on the floor, and they may be almost painless.",
+    "lookAlikes": [
+      "wolf-snake",
+      "kukri-snake"
+    ],
+    "biteSymptoms": [
+      "Little or no pain at the bite",
+      "Severe abdominal pain",
+      "Drooping eyelids",
+      "Muscle paralysis and breathing failure"
+    ],
+    "endemic": false,
+    "image": "common-krait"
   },
   {
-    "id": "4",
+    "id": "ceylon-krait",
+    "name": "Ceylon Krait",
+    "sinhalaName": "මුදු කරවලා",
+    "sinhalaRoman": "Mudu Karawala",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Bungarus ceylonicus",
+    "family": "Elapidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Neurotoxic",
+    "avgLengthCm": 75,
+    "maxLengthCm": 106,
+    "colours": [
+      "black",
+      "brown",
+      "white"
+    ],
+    "pattern": "Dark brown to black body with narrow white bands",
+    "keyFeatures": [
+      "Narrow pale bands on a dark body",
+      "Blunt rounded head",
+      "Smooth shiny scales"
+    ],
+    "habitats": [
+      "rainforest",
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "A secretive, nocturnal snake of the wet zone that hides under leaf litter and logs by day. It is rarely seen and not aggressive.",
+    "description": "An endemic krait of the wet zone. Rarely encountered, but its bite is a medical emergency.",
+    "lookAlikes": [
+      "common-krait",
+      "wolf-snake"
+    ],
+    "biteSymptoms": [
+      "Little pain at the bite",
+      "Abdominal pain",
+      "Drooping eyelids",
+      "Muscle weakness and breathing difficulty"
+    ],
+    "endemic": true,
+    "image": "ceylon-krait"
+  },
+  {
+    "id": "saw-scaled-viper",
+    "name": "Saw-scaled Viper",
+    "sinhalaName": "වැලි පොලොන්ගා",
+    "sinhalaRoman": "Weli Polonga",
+    "tamilName": "சுருட்டை விரியன்",
+    "tamilRoman": "Surutai Viriyan",
+    "scientificName": "Echis carinatus",
+    "family": "Viperidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Haemotoxic",
+    "avgLengthCm": 40,
+    "maxLengthCm": 60,
+    "colours": [
+      "sandy",
+      "brown",
+      "grey"
+    ],
+    "pattern": "Pale sandy body with a wavy pale line along each side and a cross mark on the head",
+    "keyFeatures": [
+      "Small, stout body",
+      "Rubs its scales together to make a rasping sound",
+      "Cross or arrow mark on the head"
+    ],
+    "habitats": [
+      "scrub",
+      "sandy areas"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Southern"
+    ],
+    "behaviour": "Irritable and quick to strike. Makes a distinctive sawing sound by rubbing its coiled body scales together before it bites.",
+    "description": "A small, fast and irritable viper of the dry coastal regions.",
+    "lookAlikes": [
+      "hump-nosed-viper",
+      "common-sand-boa"
+    ],
+    "biteSymptoms": [
+      "Local pain and swelling",
+      "Bleeding from the wound or gums",
+      "Bruising",
+      "Reduced urine output"
+    ],
+    "endemic": false,
+    "image": "saw-scaled-viper"
+  },
+  {
+    "id": "hump-nosed-viper",
+    "name": "Hump-nosed Viper",
+    "sinhalaName": "කුණකටුවා",
+    "sinhalaRoman": "Kunakatuwa",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Hypnale hypnale",
+    "family": "Viperidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Haemotoxic",
+    "avgLengthCm": 30,
+    "maxLengthCm": 55,
+    "colours": [
+      "brown",
+      "grey",
+      "tan"
+    ],
+    "pattern": "Mottled brown, grey or tan with darker blotches that blend into leaf litter",
+    "keyFeatures": [
+      "Upturned snout that gives a hump-nosed profile",
+      "Small and well camouflaged in leaf litter",
+      "Triangular head"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages",
+      "rainforest",
+      "scrub"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Lies motionless in leaf litter and is easily stepped on. Bites are common, especially in plantations, and need urgent hospital care.",
+    "description": "A small but medically important viper. It causes many bites because it is so hard to see.",
+    "lookAlikes": [
+      "saw-scaled-viper"
+    ],
+    "biteSymptoms": [
+      "Intense pain and swelling",
+      "Blistering and bruising",
+      "Bleeding problems",
+      "Kidney injury in severe cases"
+    ],
+    "endemic": false,
+    "image": "hump-nosed-viper"
+  },
+  {
+    "id": "green-pit-viper",
+    "name": "Green Pit Viper",
+    "sinhalaName": "පලා පොලොන්ගා",
+    "sinhalaRoman": "Pala Polonga",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Trimeresurus trigonocephalus",
+    "family": "Viperidae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild haemotoxic",
+    "avgLengthCm": 60,
+    "maxLengthCm": 90,
+    "colours": [
+      "green",
+      "yellow"
+    ],
+    "pattern": "Green to yellow-green body, often with dark cross-bands",
+    "keyFeatures": [
+      "Triangular head with heat-sensing pits",
+      "Bright green body",
+      "Gripping tail used for climbing"
+    ],
+    "habitats": [
+      "forest",
+      "rainforest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Rests coiled on branches and shrubs during the day. Rarely bites unless disturbed, and bites usually cause only local effects.",
+    "description": "A bright green endemic viper of the hill country and wet zone.",
+    "lookAlikes": [
+      "green-vine-snake"
+    ],
+    "biteSymptoms": [
+      "Pain and swelling near the bite",
+      "Bruising around the wound"
+    ],
+    "endemic": true,
+    "image": "green-pit-viper"
+  },
+  {
+    "id": "green-vine-snake",
+    "name": "Green Vine Snake",
+    "sinhalaName": "ඇහැටුල්ලා",
+    "sinhalaRoman": "Ehetulla",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Ahaetulla nasuta",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild, rear-fanged",
+    "avgLengthCm": 100,
+    "maxLengthCm": 150,
+    "colours": [
+      "green"
+    ],
+    "pattern": "Slender bright green body with a long pointed snout",
+    "keyFeatures": [
+      "Very slender body",
+      "Long pointed head with horizontal pupils",
+      "Camouflaged among leaves"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages",
+      "scrub"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Moves slowly through bushes and sways like a vine. Rear-fanged and very rarely a danger to people.",
+    "description": "A slender tree snake that blends perfectly into foliage.",
+    "lookAlikes": [
+      "green-pit-viper",
+      "green-keelback"
+    ],
+    "biteSymptoms": [
+      "Mild local swelling at most"
+    ],
+    "endemic": false,
+    "image": "green-vine-snake"
+  },
+  {
+    "id": "cat-snake",
+    "name": "Sri Lankan Cat Snake",
+    "sinhalaName": "මාපිලා",
+    "sinhalaRoman": "Mapila",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Boiga ceylonensis",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild, rear-fanged",
+    "avgLengthCm": 90,
+    "maxLengthCm": 125,
+    "colours": [
+      "brown",
+      "tan"
+    ],
+    "pattern": "Brown or tan body with darker cross-bands and a large head",
+    "keyFeatures": [
+      "Large head distinct from a thin neck",
+      "Vertical slit-like pupils",
+      "Slim body, climbs trees at night"
+    ],
+    "habitats": [
+      "rainforest",
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "A slim, nocturnal tree snake that hunts birds and lizards. Mildly venomous and not considered dangerous to people.",
+    "description": "A night-active tree snake with a large head and slit-like pupils.",
+    "lookAlikes": [],
+    "biteSymptoms": [
+      "Mild local swelling at most"
+    ],
+    "endemic": true,
+    "image": "cat-snake"
+  },
+  {
+    "id": "flying-snake",
+    "name": "Sri Lankan Flying Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Chrysopelea taprobanica",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild, rear-fanged",
+    "avgLengthCm": 90,
+    "maxLengthCm": 130,
+    "colours": [
+      "green",
+      "black",
+      "yellow"
+    ],
+    "pattern": "Green-black body with yellow-orange spots and black bands on the head",
+    "keyFeatures": [
+      "Glides between trees by flattening its body",
+      "Slender and agile",
+      "Black bands across the head"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Flattens its body to glide short distances from tree to tree. Mildly venomous and harmless to people in practice.",
+    "description": "A colourful tree snake famous for gliding between branches.",
+    "lookAlikes": [
+      "green-vine-snake"
+    ],
+    "biteSymptoms": [
+      "Mild local swelling at most"
+    ],
+    "endemic": false,
+    "image": "flying-snake"
+  },
+  {
+    "id": "dog-faced-water-snake",
+    "name": "Dog-faced Water Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Cerberus rynchops",
+    "family": "Homalopsidae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild, rear-fanged",
+    "avgLengthCm": 70,
+    "maxLengthCm": 100,
+    "colours": [
+      "grey",
+      "brown"
+    ],
+    "pattern": "Grey-brown body with dark blotches that fade with age",
+    "keyFeatures": [
+      "Upturned nostrils on a broad head",
+      "Lives in brackish water and mangroves",
+      "Heavy-bodied for its length"
+    ],
+    "habitats": [
+      "wetlands"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Southern",
+      "Eastern",
+      "Northern",
+      "North Western"
+    ],
+    "behaviour": "Hunts fish in estuaries and lagoons. Bites are uncommon and mild.",
+    "description": "A heavy-bodied snake of brackish water and mangroves.",
+    "lookAlikes": [
+      "checkered-keelback"
+    ],
+    "biteSymptoms": [
+      "Mild local swelling at most"
+    ],
+    "endemic": false,
+    "image": "dog-faced-water-snake"
+  },
+  {
+    "id": "green-keelback",
+    "name": "Green Keelback",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Rhabdophis plumbicolor",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild, rear-fanged",
+    "avgLengthCm": 60,
+    "maxLengthCm": 90,
+    "colours": [
+      "green",
+      "olive"
+    ],
+    "pattern": "Olive-green body with fine dark and orange markings near the neck",
+    "keyFeatures": [
+      "Keeled scales",
+      "Orange or yellow neck markings",
+      "Found near water and damp areas"
+    ],
+    "habitats": [
+      "wetlands",
+      "gardens and villages"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Feeds on frogs near ponds, streams and wet gardens. Rarely bites and has mild venom.",
+    "description": "A small green water-edge snake that eats frogs.",
+    "lookAlikes": [
+      "green-vine-snake"
+    ],
+    "biteSymptoms": [
+      "Mild local swelling at most"
+    ],
+    "endemic": false,
+    "image": "green-keelback"
+  },
+  {
+    "id": "indian-python",
     "name": "Indian Python",
+    "sinhalaName": "පිඹුරා",
+    "sinhalaRoman": "Pimbura",
+    "tamilName": "மலைப்பாம்பு",
+    "tamilRoman": "Malai Pambu",
     "scientificName": "Python molurus",
+    "family": "Pythonidae",
     "venomous": false,
-    "description": "A large non-venomous snake species found in Sri Lanka."
+    "venomLevel": "non_venomous",
+    "venomType": "None (constrictor)",
+    "avgLengthCm": 300,
+    "maxLengthCm": 500,
+    "colours": [
+      "tan",
+      "brown",
+      "cream"
+    ],
+    "pattern": "Large irregular dark brown blotches on a tan or cream body",
+    "keyFeatures": [
+      "Very large, heavy body",
+      "Heat-sensing pits along the upper lip",
+      "Spear-shaped mark on the head"
+    ],
+    "habitats": [
+      "forest",
+      "scrub",
+      "grassland",
+      "wetlands"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Kills prey by constriction. Protected by law in Sri Lanka and not a threat to people if left alone.",
+    "description": "A large, harmless constrictor protected under Sri Lankan law.",
+    "lookAlikes": [
+      "common-sand-boa"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "indian-python"
   },
   {
-    "id": "5",
+    "id": "rat-snake",
     "name": "Common Rat Snake",
+    "sinhalaName": "ගැරඬියා",
+    "sinhalaRoman": "Gerandiya",
+    "tamilName": "சாரைப்பாம்பு",
+    "tamilRoman": "Saarai Pambu",
     "scientificName": "Ptyas mucosa",
+    "family": "Colubridae",
     "venomous": false,
-    "description": "A non-venomous snake species found in Sri Lanka."
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 180,
+    "maxLengthCm": 300,
+    "colours": [
+      "brown",
+      "olive",
+      "yellow"
+    ],
+    "pattern": "Brown to olive above, with darker scale edges towards the tail and a pale belly",
+    "keyFeatures": [
+      "Long slender body with large eyes",
+      "Often raises its head high when threatened",
+      "Very fast moving"
+    ],
+    "habitats": [
+      "paddy fields",
+      "gardens and villages",
+      "scrub",
+      "forest"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Hunts rats and frogs. Often mistaken for a cobra, but it is harmless and helps farmers by controlling rodents.",
+    "description": "A fast, harmless snake that is often mistaken for a cobra.",
+    "lookAlikes": [
+      "indian-cobra"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "rat-snake"
+  },
+  {
+    "id": "wolf-snake",
+    "name": "Common Wolf Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Lycodon aulicus",
+    "family": "Colubridae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 45,
+    "maxLengthCm": 70,
+    "colours": [
+      "brown",
+      "black",
+      "white"
+    ],
+    "pattern": "Brown to black body with thin pale cross-bands that fade towards the tail",
+    "keyFeatures": [
+      "Flattened head with an indistinct neck",
+      "Thin pale bands on a dark body",
+      "Often found inside houses at night"
+    ],
+    "habitats": [
+      "gardens and villages",
+      "scrub"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Eats lizards and geckos, so it often enters houses. Frequently killed by mistake because it looks like a krait.",
+    "description": "A small harmless snake that is often confused with a krait.",
+    "lookAlikes": [
+      "common-krait"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "wolf-snake"
+  },
+  {
+    "id": "common-sand-boa",
+    "name": "Common Sand Boa",
+    "sinhalaName": "වැලි පිඹුරා",
+    "sinhalaRoman": "Weli Pimbura",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Eryx conicus",
+    "family": "Boidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None (constrictor)",
+    "avgLengthCm": 50,
+    "maxLengthCm": 75,
+    "colours": [
+      "brown",
+      "tan"
+    ],
+    "pattern": "Brown blotches on a sandy body; short and thick",
+    "keyFeatures": [
+      "Short blunt tail that resembles a head",
+      "Thick sturdy body",
+      "Burrows into loose soil"
+    ],
+    "habitats": [
+      "scrub",
+      "sandy areas"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Southern"
+    ],
+    "behaviour": "Spends the day buried in loose soil. Harmless but often killed because it is mistaken for a viper.",
+    "description": "A stout burrowing snake often mistaken for Russell's Viper.",
+    "lookAlikes": [
+      "russells-viper"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "common-sand-boa"
+  },
+  {
+    "id": "checkered-keelback",
+    "name": "Checkered Keelback",
+    "sinhalaName": "දිය නයා",
+    "sinhalaRoman": "Diya Naya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Fowlea piscator",
+    "family": "Natricidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 80,
+    "maxLengthCm": 120,
+    "colours": [
+      "olive",
+      "brown",
+      "black"
+    ],
+    "pattern": "Olive-brown body with a checkered pattern of dark squares and a dark streak behind the eye",
+    "keyFeatures": [
+      "Keeled scales",
+      "Checkered markings",
+      "Strong swimmer found near water"
+    ],
+    "habitats": [
+      "paddy fields",
+      "wetlands"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Common in paddy fields, tanks and ditches, where it hunts frogs and fish. It may flatten its neck when scared.",
+    "description": "A common water snake of paddy fields and tanks.",
+    "lookAlikes": [
+      "indian-cobra"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "checkered-keelback"
+  },
+  {
+    "id": "trinket-snake",
+    "name": "Trinket Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Coelognathus helena",
+    "family": "Colubridae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 100,
+    "maxLengthCm": 150,
+    "colours": [
+      "brown",
+      "tan",
+      "black"
+    ],
+    "pattern": "Brown body with dark stripes along the back and dark lines on the head",
+    "keyFeatures": [
+      "Dark streaks behind the eye",
+      "Slim and quick",
+      "Striped pattern towards the tail"
+    ],
+    "habitats": [
+      "scrub",
+      "gardens and villages",
+      "forest"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Hunts rodents and lizards on the ground and in low bushes. Harmless to people.",
+    "description": "A slim, fast-moving harmless snake of scrub and gardens.",
+    "lookAlikes": [
+      "rat-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "trinket-snake"
+  },
+  {
+    "id": "bronzeback-tree-snake",
+    "name": "Bronzeback Tree Snake",
+    "sinhalaName": "හල්දණ්ඩා",
+    "sinhalaRoman": "Haldanda",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Dendrelaphis sp.",
+    "family": "Colubridae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 80,
+    "maxLengthCm": 120,
+    "colours": [
+      "bronze",
+      "olive"
+    ],
+    "pattern": "Bronze-brown above with pale stripes along the sides",
+    "keyFeatures": [
+      "Slender body and large eyes",
+      "Bronze sheen on the back",
+      "Lives in trees and shrubs"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages",
+      "scrub"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Fast and agile, it hunts lizards and frogs in bushes. It may puff its throat to look bigger when scared.",
+    "description": "A quick, harmless tree snake with a bronze sheen.",
+    "lookAlikes": [
+      "green-vine-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "bronzeback-tree-snake"
+  },
+  {
+    "id": "shieldtail",
+    "name": "Sri Lankan Shieldtail",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Rhinophis saffragamus",
+    "family": "Uropeltidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 30,
+    "maxLengthCm": 40,
+    "colours": [
+      "brown"
+    ],
+    "pattern": "Smooth, shiny, dark brown body, paler underneath",
+    "keyFeatures": [
+      "Short pointed snout for burrowing",
+      "Flat shield-like tail tip",
+      "Rarely seen above ground"
+    ],
+    "habitats": [
+      "rainforest",
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Sabaragamuwa",
+      "Central",
+      "Southern"
+    ],
+    "behaviour": "A burrowing snake of the wet zone that lives in loose soil and feeds on earthworms. Completely harmless.",
+    "description": "An endemic burrowing snake with a shield-shaped tail.",
+    "lookAlikes": [],
+    "biteSymptoms": [],
+    "endemic": true,
+    "image": "shieldtail"
+  },
+  {
+    "id": "blind-snake",
+    "name": "Brahminy Blind Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Indotyphlops braminus",
+    "family": "Typhlopidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 12,
+    "maxLengthCm": 17,
+    "colours": [
+      "black",
+      "brown"
+    ],
+    "pattern": "Shiny dark thread-like body that looks like an earthworm",
+    "keyFeatures": [
+      "Tiny worm-like body",
+      "Eyes reduced to small dots",
+      "Tail ends in a tiny spine"
+    ],
+    "habitats": [
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Lives in soil and under pots and stones, feeding on ants and termites. Often mistaken for an earthworm.",
+    "description": "The smallest snake in most gardens, often mistaken for an earthworm.",
+    "lookAlikes": [],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "blind-snake"
+  },
+  {
+    "id": "kukri-snake",
+    "name": "Banded Kukri Snake",
+    "sinhalaName": "",
+    "sinhalaRoman": "",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Oligodon arnensis",
+    "family": "Colubridae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 55,
+    "maxLengthCm": 80,
+    "colours": [
+      "tan",
+      "brown",
+      "white"
+    ],
+    "pattern": "Brown body with pale cross-bands, often confused with a krait",
+    "keyFeatures": [
+      "Pale cross-bands on a brown body",
+      "Wide curved rear teeth shaped like a kukri knife",
+      "Head only slightly wider than the neck"
+    ],
+    "habitats": [
+      "scrub",
+      "gardens and villages",
+      "paddy fields"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Eats reptile eggs. Looks like a krait but is harmless, and it is often killed by mistake.",
+    "description": "A harmless egg-eater that looks like a krait.",
+    "lookAlikes": [
+      "common-krait"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "kukri-snake"
+  },
+  {
+    "id": "lowland-hump-nosed-viper",
+    "name": "Lowland Hump-nosed Viper",
+    "sinhalaName": "පහතරට මූකලන් තෙලිස්සා",
+    "sinhalaRoman": "Pahatharata Mukalan Thelissa",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Hypnale zara",
+    "family": "Viperidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Haemotoxic and cytotoxic; can cause bleeding problems and kidney injury",
+    "avgLengthCm": 35,
+    "maxLengthCm": 45,
+    "colours": [
+      "brown",
+      "grey",
+      "tan"
+    ],
+    "pattern": "Brown or grey with darker blotches and a dark stripe running across the eye and cheek",
+    "keyFeatures": [
+      "Snout tip turned up into a small wart-like hump",
+      "Flat triangular head with a heat-sensing pit between nostril and eye",
+      "Often rests with its head held at an angle to the ground"
+    ],
+    "habitats": [
+      "rainforest",
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Southern",
+      "Sabaragamuwa",
+      "Central"
+    ],
+    "behaviour": "Lies still in leaf litter, often in rubber, tea and cinnamon plantations and home gardens of the south-western wet zone. Most bites happen when people step on or reach near it.",
+    "description": "A small endemic pit viper of the lowland wet zone. It has caused serious bleeding and kidney injury in Sri Lanka.",
+    "lookAlikes": [
+      "hump-nosed-viper",
+      "highland-hump-nosed-viper"
+    ],
+    "biteSymptoms": [
+      "Pain, swelling and blistering at the bite",
+      "Bleeding from the bite or gums",
+      "Reduced urine output"
+    ],
+    "endemic": true,
+    "image": "lowland-hump-nosed-viper"
+  },
+  {
+    "id": "highland-hump-nosed-viper",
+    "name": "Highland Hump-nosed Viper",
+    "sinhalaName": "කඳුකර මූකලන් තෙලිස්සා",
+    "sinhalaRoman": "Kandukara Mukalan Thelissa",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Hypnale nepa",
+    "family": "Viperidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Haemotoxic and cytotoxic; mostly local effects, but treat every bite as an emergency",
+    "avgLengthCm": 30,
+    "maxLengthCm": 39,
+    "colours": [
+      "brown",
+      "grey"
+    ],
+    "pattern": "Brown to grey with a row of darker blotches along each side",
+    "keyFeatures": [
+      "Strongly upturned snout",
+      "Small, stout body with a short tail",
+      "Triangular head with a pit between nostril and eye"
+    ],
+    "habitats": [
+      "forest",
+      "rainforest"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "A small, slow viper of the central hills. It hides among leaves and rocks on the forest floor and in forest edges, ambushing frogs and lizards at night.",
+    "description": "The smallest of Sri Lanka's three hump-nosed vipers, found only in the hill country.",
+    "lookAlikes": [
+      "lowland-hump-nosed-viper",
+      "hump-nosed-viper"
+    ],
+    "biteSymptoms": [
+      "Pain and swelling at the bite",
+      "Local blistering"
+    ],
+    "endemic": true,
+    "image": "highland-hump-nosed-viper"
+  },
+  {
+    "id": "hook-nosed-sea-snake",
+    "name": "Hook-nosed Sea Snake",
+    "sinhalaName": "හොට වාලක්කඩියා",
+    "sinhalaRoman": "Hota Walakkadiya",
+    "tamilName": "வலைக்கடியன்",
+    "tamilRoman": "Valaikkadiyan",
+    "scientificName": "Hydrophis schistosus",
+    "family": "Elapidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Neurotoxic and myotoxic (damages muscle)",
+    "avgLengthCm": 110,
+    "maxLengthCm": 150,
+    "colours": [
+      "grey",
+      "olive"
+    ],
+    "pattern": "Grey to grey-green above with dark cross-bands, paler on the belly",
+    "keyFeatures": [
+      "Flat paddle-shaped tail",
+      "Pointed, beak-like snout",
+      "Nostrils on top of the head"
+    ],
+    "habitats": [
+      "sea and estuaries"
+    ],
+    "activeTime": "both",
+    "provinces": [
+      "Western",
+      "Southern",
+      "Eastern",
+      "Northern",
+      "North Western"
+    ],
+    "behaviour": "Lives in shallow, muddy coastal water, lagoons and river mouths. It is often caught in fishing nets and may bite and hold on when handled. Fishermen are at greatest risk.",
+    "description": "The sea snake most often met by Sri Lankan fishermen. Its venom is very potent.",
+    "lookAlikes": [
+      "wart-snake",
+      "dog-faced-water-snake"
+    ],
+    "biteSymptoms": [
+      "Bite may be painless at first",
+      "Muscle pain and stiffness",
+      "Dark brown urine",
+      "Drooping eyelids and difficulty breathing"
+    ],
+    "endemic": false,
+    "image": "hook-nosed-sea-snake"
+  },
+  {
+    "id": "slender-coral-snake",
+    "name": "Slender Coral Snake",
+    "sinhalaName": "දෙපත් කළුවා",
+    "sinhalaRoman": "Depath Kaluwa",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Calliophis melanurus",
+    "family": "Elapidae",
+    "venomous": true,
+    "venomLevel": "highly_venomous",
+    "venomType": "Neurotoxic; bites are very rare but it is a true elapid, so treat it as dangerous",
+    "avgLengthCm": 30,
+    "maxLengthCm": 57,
+    "colours": [
+      "brown",
+      "black"
+    ],
+    "pattern": "Plain brown body with a black head marked with pale spots and black rings on a short tail",
+    "keyFeatures": [
+      "Very thin, pencil-like body",
+      "Black head with white or yellow spots",
+      "Shows the bright blue underside of its tail when disturbed"
+    ],
+    "habitats": [
+      "forest",
+      "scrub",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Central",
+      "North Central",
+      "North Western",
+      "Eastern",
+      "Uva",
+      "Northern"
+    ],
+    "behaviour": "A shy burrower that lives under leaf litter and logs. If disturbed it hides its head and curls its tail up to flash the coloured underside.",
+    "description": "A tiny, secretive coral snake. Rarely seen, but its venom acts on the nerves.",
+    "lookAlikes": [
+      "blind-snake"
+    ],
+    "biteSymptoms": [
+      "Local pain",
+      "Possible drooping eyelids or weakness (rare)"
+    ],
+    "endemic": false,
+    "image": "slender-coral-snake"
+  },
+  {
+    "id": "brown-vine-snake",
+    "name": "Brown Vine Snake",
+    "sinhalaName": "හෙනකඳයා",
+    "sinhalaRoman": "Henakandaya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Ahaetulla pulverulenta",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild; rear-fanged",
+    "avgLengthCm": 110,
+    "maxLengthCm": 180,
+    "colours": [
+      "brown",
+      "grey"
+    ],
+    "pattern": "Greyish brown, powdered with darker brown, with dark diagonal blotches and a dark stripe through the eye",
+    "keyFeatures": [
+      "Extremely thin, whip-like body",
+      "Long pointed snout",
+      "Horizontal keyhole-shaped pupil"
+    ],
+    "habitats": [
+      "forest",
+      "rainforest",
+      "gardens and villages"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Sabaragamuwa",
+      "Uva",
+      "North Western"
+    ],
+    "behaviour": "Rests motionless in shrubs where it looks like a dry twig or vine. Opens its mouth wide as a warning display and hunts lizards by day.",
+    "description": "A twig-like tree snake found only in Sri Lanka. Mildly venomous and not dangerous to people.",
+    "lookAlikes": [
+      "green-vine-snake",
+      "bronzeback-tree-snake"
+    ],
+    "biteSymptoms": [
+      "Mild local pain and swelling"
+    ],
+    "endemic": true,
+    "image": "brown-vine-snake"
+  },
+  {
+    "id": "ornate-flying-snake",
+    "name": "Ornate Flying Snake",
+    "sinhalaName": "පොල්මල් කරවලා",
+    "sinhalaRoman": "Polmal Karawala",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Chrysopelea ornata",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild; rear-fanged",
+    "avgLengthCm": 90,
+    "maxLengthCm": 130,
+    "colours": [
+      "green",
+      "black",
+      "yellow"
+    ],
+    "pattern": "Yellow-green body crossed by black bars, often with red or orange flower-like spots along the back",
+    "keyFeatures": [
+      "Can glide between trees by flattening its body",
+      "Large eyes and a flat head",
+      "Ridges along the belly help it climb bark"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "An agile climber that hunts geckos and lizards in trees and coconut palms. It launches itself from branches and glides to lower perches.",
+    "description": "A colourful gliding snake, larger and more boldly marked than the Sri Lanka Flying Snake.",
+    "lookAlikes": [
+      "flying-snake"
+    ],
+    "biteSymptoms": [
+      "Mild local pain and swelling"
+    ],
+    "endemic": false,
+    "image": "ornate-flying-snake"
+  },
+  {
+    "id": "forstens-cat-snake",
+    "name": "Forsten's Cat Snake",
+    "sinhalaName": "කබර මාපිලා",
+    "sinhalaRoman": "Kabara Mapila",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Boiga forsteni",
+    "family": "Colubridae",
+    "venomous": true,
+    "venomLevel": "mildly_venomous",
+    "venomType": "Mild; rear-fanged",
+    "avgLengthCm": 130,
+    "maxLengthCm": 220,
+    "colours": [
+      "brown",
+      "grey"
+    ],
+    "pattern": "Brown or grey with dark zigzag cross-bars and a dark streak behind the eye",
+    "keyFeatures": [
+      "Large head on a thin neck",
+      "Big eyes with vertical cat-like pupils",
+      "Very long, slightly flattened body"
+    ],
+    "habitats": [
+      "forest",
+      "scrub",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Climbs trees and roofs at night hunting roosting birds, lizards and rodents. It strikes readily if cornered but its venom is weak.",
+    "description": "Sri Lanka's largest cat snake. Often found in roofs and mistaken for a viper.",
+    "lookAlikes": [
+      "cat-snake",
+      "russells-viper"
+    ],
+    "biteSymptoms": [
+      "Local pain and swelling"
+    ],
+    "endemic": false,
+    "image": "forstens-cat-snake"
+  },
+  {
+    "id": "ceylon-pipe-snake",
+    "name": "Sri Lanka Pipe Snake",
+    "sinhalaName": "දෙපත් නයා",
+    "sinhalaRoman": "Depath Naya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Cylindrophis maculatus",
+    "family": "Cylindrophiidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 30,
+    "maxLengthCm": 35,
+    "colours": [
+      "black",
+      "brown",
+      "white"
+    ],
+    "pattern": "Black net pattern enclosing two rows of reddish-brown spots; white belly marked with black",
+    "keyFeatures": [
+      "Smooth, cylindrical body with a small head",
+      "Very short, blunt tail",
+      "Flattens and raises its tail to look like a second head"
+    ],
+    "habitats": [
+      "forest",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Central",
+      "North Western",
+      "North Central",
+      "Western",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Hides under stones, logs and leaf litter by day. At night it hunts other small snakes. When threatened it hides its head and waves its flattened tail.",
+    "description": "A small, harmless pipe snake found only in Sri Lanka. Its Sinhala name means 'two-headed cobra'.",
+    "lookAlikes": [
+      "shieldtail",
+      "blind-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": true,
+    "image": "ceylon-pipe-snake"
+  },
+  {
+    "id": "wart-snake",
+    "name": "Wart Snake",
+    "sinhalaName": "දිය ගොයා",
+    "sinhalaRoman": "Diya Goya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Acrochordus granulatus",
+    "family": "Acrochordidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 70,
+    "maxLengthCm": 100,
+    "colours": [
+      "grey",
+      "black",
+      "white"
+    ],
+    "pattern": "Dark grey with pale cross-bands; loose, baggy skin",
+    "keyFeatures": [
+      "Rough sandpaper-like skin of tiny granular scales",
+      "Loose, baggy body",
+      "Small eyes on top of the head"
+    ],
+    "habitats": [
+      "sea and estuaries",
+      "wetlands"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Western",
+      "Southern",
+      "Eastern",
+      "Northern",
+      "North Western"
+    ],
+    "behaviour": "Fully aquatic and almost helpless on land. Lives in mangroves, lagoons and shallow coastal water, feeding on fish and crabs. Often caught in nets with sea snakes.",
+    "description": "A harmless aquatic snake with rough skin, often confused with venomous sea snakes.",
+    "lookAlikes": [
+      "hook-nosed-sea-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "wart-snake"
+  },
+  {
+    "id": "barred-wolf-snake",
+    "name": "Barred Wolf Snake",
+    "sinhalaName": "කබර රදනකයා",
+    "sinhalaRoman": "Kabara Radanakaya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Lycodon striatus",
+    "family": "Colubridae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 35,
+    "maxLengthCm": 45,
+    "colours": [
+      "black",
+      "brown",
+      "white",
+      "yellow"
+    ],
+    "pattern": "Black or dark brown with narrow white or yellow cross-bars that break into spots towards the tail",
+    "keyFeatures": [
+      "Flattened head slightly wider than the neck",
+      "Narrow pale bars on a dark body",
+      "Small eyes"
+    ],
+    "habitats": [
+      "scrub",
+      "gardens and villages"
+    ],
+    "activeTime": "nocturnal",
+    "provinces": [
+      "Northern",
+      "Eastern",
+      "North Central",
+      "North Western",
+      "Uva",
+      "Southern"
+    ],
+    "behaviour": "A small night hunter of geckos and skinks in the dry zone. Harmless, but often killed because it is mistaken for a krait.",
+    "description": "A small, harmless banded snake of the dry zone that mimics kraits.",
+    "lookAlikes": [
+      "common-krait",
+      "ceylon-krait",
+      "wolf-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "barred-wolf-snake"
+  },
+  {
+    "id": "buff-striped-keelback",
+    "name": "Buff-striped Keelback",
+    "sinhalaName": "අහරකුක්කා",
+    "sinhalaRoman": "Aharakukka",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Amphiesma stolatum",
+    "family": "Natricidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 50,
+    "maxLengthCm": 80,
+    "colours": [
+      "olive",
+      "brown",
+      "yellow"
+    ],
+    "pattern": "Olive-brown with two buff or yellow stripes along the body crossed by dark bars",
+    "keyFeatures": [
+      "Two pale stripes running down the body",
+      "Keeled (ridged) scales",
+      "Flattens its neck to show bright skin when alarmed"
+    ],
+    "habitats": [
+      "paddy fields",
+      "grassland",
+      "wetlands",
+      "gardens and villages"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "Active by day in fields and garden edges, especially after rain, hunting frogs and toads. Shy and quick to escape.",
+    "description": "A common, harmless striped snake of paddy fields and grassland.",
+    "lookAlikes": [
+      "checkered-keelback",
+      "trinket-snake"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "buff-striped-keelback"
+  },
+  {
+    "id": "olive-keelback",
+    "name": "Olive Keelback",
+    "sinhalaName": "දියවර්ණයා",
+    "sinhalaRoman": "Diyawarnaya",
+    "tamilName": "",
+    "tamilRoman": "",
+    "scientificName": "Atretium schistosum",
+    "family": "Natricidae",
+    "venomous": false,
+    "venomLevel": "non_venomous",
+    "venomType": "None",
+    "avgLengthCm": 50,
+    "maxLengthCm": 85,
+    "colours": [
+      "olive",
+      "brown"
+    ],
+    "pattern": "Plain olive-green or olive-brown above, with a pale or orange edge to the belly",
+    "keyFeatures": [
+      "Nostrils set high on the snout",
+      "Plain, unpatterned back",
+      "Keeled scales"
+    ],
+    "habitats": [
+      "wetlands",
+      "paddy fields"
+    ],
+    "activeTime": "diurnal",
+    "provinces": [
+      "Western",
+      "Central",
+      "Southern",
+      "Northern",
+      "Eastern",
+      "North Western",
+      "North Central",
+      "Uva",
+      "Sabaragamuwa"
+    ],
+    "behaviour": "A semi-aquatic snake of tanks, ponds and flooded paddy fields that feeds on frogs and small fish. Harmless and rarely bites.",
+    "description": "A plain olive water snake common around tanks and paddy fields.",
+    "lookAlikes": [
+      "green-keelback",
+      "checkered-keelback"
+    ],
+    "biteSymptoms": [],
+    "endemic": false,
+    "image": "olive-keelback"
   }
 ]

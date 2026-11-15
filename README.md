@@ -19,23 +19,23 @@ The project is being developed as an individual mobile application coursework pr
 
 ## Features
 
-### Currently Implemented
+- **34 Sri Lankan species** with English, Sinhala and Tamil names, venom level, size, habitat, behaviour, look-alikes and bite symptoms. Version 1.1 adds 12 researched species, including the Hook-nosed Sea Snake, both endemic hump-nosed vipers (*Hypnale zara*, *H. nepa*), the Slender Coral Snake and the endemic Sri Lanka Pipe Snake.
+- **Real species photos** loaded from Wikipedia (free-licence images) and cached on the device, with bundled illustrations as the offline fallback. Photos can be switched off or downloaded in one tap from About & Settings.
+- **Identify helper:** five safe questions (place, colour, pattern, size, time) rank the most likely species.
+- **Search and filters** across all name languages, by danger level, habitat, endemic status and favourites.
+- **Compare** look-alike pairs side by side, with differences highlighted.
+- **Offline first aid** with the 1990 Suwa Seriya ambulance number.
+- **Sightings log** saved privately on the phone with AsyncStorage.
 
-- **Home Screen:** Displays the main sections of the application.
-- **Snake List Screen:** Displays sample Sri Lankan snake species and their scientific names.
-- **Navigation:** Supports Home and Explore tabs, navigation to the Snake List, and returning to the previous screen.
+## Bundling real species photos
 
-### Planned Features
+Run this once on a computer with internet (Node 18+):
 
-- Offline dataset of Sri Lankan snake species
-- Snake identification information and images
-- Search and filter functionality
-- Detailed information about each snake
-- Snake comparison
-- Offline snakebite first-aid guidance
-- Personal snake sighting records
-- Local data storage
-- About screen
+```bash
+npm run photos
+```
+
+It downloads a free-licence photo for every species from Wikipedia / Wikimedia Commons into `assets/snakes/photos/`, regenerates `src/data/images.ts`, and writes the author and licence of each photo to `src/data/photoCredits.json` and `PHOTO_CREDITS.md`. The app then shows the photos with no internet at all, and credits the photographer on each species page. Species without a usable photo keep their illustration. To swap a photo, add a Commons file name to `scripts/photo-overrides.json` and run `npm run photos -- --force`.
 
 ## Project Structure
 
