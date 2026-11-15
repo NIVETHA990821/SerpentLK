@@ -13,6 +13,7 @@ import { useAppTheme } from '@/context/app-theme';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import firstAid from '@/data/firstAid.json';
 import { hospitals } from '@/data/hospitals';
+import { getAidText } from '@/data/firstAidTranslations';
 
 type Section = 'do' | 'dont' | 'hospitals';
 
@@ -20,12 +21,19 @@ export default function FirstAidScreen() {
   const [section, setSection] = useState<Section>('do');
 
   const { colors } = useAppTheme();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const phoneLabel = language === 'ta' ? 'மருத்துவமனைக்கு அழைக்க' : language === 'si' ? 'රෝහල අමතන්න' : 'Call hospital';
+  const missingPhoneLabel = language === 'ta' ? 'தொலைபேசி எண் உறுதிப்படுத்தப்படவில்லை' : language === 'si' ? 'දුරකථන අංකය තහවුරු කර නැත' : 'Phone number not verified';
 
   const callEmergency = () => {
     Linking.openURL(
       `tel:${firstAid.emergencyNumber}`
     ).catch(() => {});
+  };
+
+  const callHospital = (phone: string) => {
+    const cleaned = phone.replace(/[^0-9+]/g, '');
+    if (cleaned) Linking.openURL(`tel:${cleaned}`).catch(() => {});
   };
 
   return (
@@ -177,7 +185,7 @@ export default function FirstAidScreen() {
                     { color: colors.text },
                   ]}
                 >
-                  {step.title}
+                  {getAidText('steps', step.id, language, step).title}
                 </Text>
 
                 <Text
@@ -186,7 +194,7 @@ export default function FirstAidScreen() {
                     { color: colors.muted },
                   ]}
                 >
-                  {step.description}
+                  {getAidText('steps', step.id, language, step).description}
                 </Text>
               </View>
             </View>
@@ -225,7 +233,7 @@ export default function FirstAidScreen() {
                     { color: colors.dangerText },
                   ]}
                 >
-                  {item.title}
+                  {getAidText('donts', item.id, language, item).title}
                 </Text>
 
                 <Text
@@ -234,7 +242,7 @@ export default function FirstAidScreen() {
                     { color: colors.text },
                   ]}
                 >
-                  {item.description}
+                  {getAidText('donts', item.id, language, item).description}
                 </Text>
               </View>
             </View>
@@ -319,6 +327,22 @@ export default function FirstAidScreen() {
                 <Text style={styles.hospitalCategory}>
                   {hospital.category}
                 </Text>
+                {hospital.phone ? (
+                  <Pressable
+                    onPress={() => callHospital(hospital.phone!)}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${phoneLabel}: ${hospital.name}, ${hospital.phone}`}
+                    style={styles.hospitalCallButton}
+                  >
+                    <Text style={styles.hospitalCallText}>
+                      📞 {phoneLabel}: {hospital.phone}
+                    </Text>
+                  </Pressable>
+                ) : (
+                  <Text style={[styles.missingPhone, { color: colors.muted }]}>
+                    {missingPhoneLabel}
+                  </Text>
+                )}
               </View>
             </View>
           ))}
@@ -541,6 +565,23 @@ const styles = StyleSheet.create({
     color: '#39A36D',
     marginTop: 5,
     fontWeight: '700',
+  },
+  hospitalCallButton: {
+    backgroundColor: '#17683C',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginTop: 12,
+    alignSelf: 'flex-start',
+  },
+  hospitalCallText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  missingPhone: {
+    marginTop: 10,
+    fontSize: 12,
   },
   references: {
     marginTop: 24,

@@ -1,0 +1,17 @@
+export type IdentifyLanguage = 'en' | 'ta' | 'si';
+const en = {
+ safety:'Stay at least two body lengths away. Treat any snake you cannot name as venomous.',question:'Question',of:'of',back:'Back',skip:'Not sure, skip',closest:'Closest matches',skipped:'You skipped every question, so these are listed alphabetically.',based:(n:number)=>`Based on ${n} of your answers. Open a species to check its key features.`,match:'match',again:'Start again',aid:'First aid',
+ questions:['Where did you see it?','What was its main colour?','What pattern did it have?','About how long was it?','When did you see it?'],
+ options:[['In or near a house or garden','Paddy field, grass or scrub','Forest floor or leaf litter','Up in a tree or bush','In or beside water'],['Brown, tan or sandy','Green or olive','Black or very dark','Grey'],['Rings or bands across the body','Spots, blotches or a chain','Stripes along the body','Plain, no clear pattern'],['Short, under half a metre','About as long as an arm','Very long or thick, over 1.5 m'],['In daylight','At dusk or night']]
+};
+const ta:typeof en = {
+ safety:'பாம்பிலிருந்து குறைந்தது இரண்டு உடல் நீளத் தூரம் விலகி இருங்கள். அடையாளம் தெரியாத பாம்பை நஞ்சுள்ள பாம்பாகக் கருதுங்கள்.',question:'கேள்வி',of:'இல்',back:'பின்செல்',skip:'தெரியவில்லை, தவிர்க்கவும்',closest:'மிகவும் பொருந்தக்கூடிய பாம்புகள்',skipped:'நீங்கள் எல்லா கேள்விகளையும் தவிர்த்ததால், பாம்புகள் அகரவரிசையில் காட்டப்படுகின்றன.',based:(n:number)=>`உங்கள் ${n} பதில்களின் அடிப்படையில் முடிவுகள் காட்டப்படுகின்றன. முக்கிய அம்சங்களைச் சரிபார்க்க பாம்பின் விவரங்களைத் திறக்கவும்.`,match:'பொருத்தம்',again:'மீண்டும் தொடங்கு',aid:'முதலுதவி',
+ questions:['பாம்பை எங்கு பார்த்தீர்கள்?','அதன் முக்கிய நிறம் என்ன?','அதன் உடலில் என்ன வடிவம் இருந்தது?','அதன் நீளம் தோராயமாக எவ்வளவு?','பாம்பை எப்போது பார்த்தீர்கள்?'],
+ options:[['வீட்டில் அல்லது தோட்டத்திற்கு அருகில்','நெல் வயல், புல்வெளி அல்லது புதர்','காட்டுத் தரையில் அல்லது உதிர்ந்த இலைகளில்','மரம் அல்லது புதரின் மேல்','நீரில் அல்லது நீருக்கு அருகில்'],['பழுப்பு அல்லது மணல் நிறம்','பச்சை அல்லது ஒலிவ் பச்சை','கருப்பு அல்லது மிகவும் கருமையான நிறம்','சாம்பல் நிறம்'],['உடலில் குறுக்காக வளையங்கள் அல்லது பட்டைகள்','புள்ளிகள் அல்லது சங்கிலி போன்ற வடிவம்','உடல் நீளமாகக் கோடுகள்','தெளிவான வடிவம் இல்லை'],['அரை மீட்டருக்கும் குறைவான நீளம்','ஒரு கை அளவு நீளம்','மிகவும் நீளமானது அல்லது தடிமனானது, 1.5 மீட்டருக்கு மேல்'],['பகல் நேரத்தில்','மாலை அல்லது இரவு நேரத்தில்']]
+};
+const si:typeof en = {
+ safety:'සර්පයාගෙන් අවම වශයෙන් ශරීර දිග දෙකක දුරක් තබා ගන්න. හඳුනාගත නොහැකි සර්පයෙකු විෂ සහිත විය හැකි බව සලකන්න.',question:'ප්‍රශ්නය',of:'න්',back:'ආපසු',skip:'විශ්වාස නැහැ, මඟ හරින්න',closest:'වඩාත් ගැළපෙන සර්පයන්',skipped:'ඔබ සියලු ප්‍රශ්න මඟ හැර ඇති නිසා සර්පයන් අකාරාදී පිළිවෙළට පෙන්වයි.',based:(n:number)=>`ඔබ ලබාදුන් පිළිතුරු ${n} මත ප්‍රතිඵල පදනම් වේ. ප්‍රධාන ලක්ෂණ පරීක්ෂා කිරීමට සර්ප විස්තර විවෘත කරන්න.`,match:'ගැළපීම',again:'නැවත ආරම්භ කරන්න',aid:'ප්‍රථමාධාර',
+ questions:['ඔබ සර්පයා දුටුවේ කොහේදීද?','එහි ප්‍රධාන වර්ණය කුමක්ද?','එහි ශරීරයේ තිබූ රටාව කුමක්ද?','එහි දිග ආසන්න වශයෙන් කොපමණද?','ඔබ සර්පයා දුටුවේ කවදාද?'],
+ options:[['නිවසේ හෝ ගෙවත්ත අසල','කුඹුරක, තණබිමක හෝ ලඳු කැලෑවක','වනාන්තර බිමේ හෝ වැටුණු කොළ අතර','ගසක හෝ පඳුරක','ජලයේ හෝ ජලය අසල'],['දුඹුරු හෝ වැලි පැහැය','කොළ හෝ ඔලිව් කොළ','කළු හෝ ඉතා තද පැහැය','අළු පැහැය'],['ශරීරය හරහා වළලු හෝ පටි','ලප හෝ දම්වැල් වැනි රටාවක්','ශරීරය දිගේ ඉරි','පැහැදිලි රටාවක් නැත'],['මීටර් භාගයකට වඩා කෙටි','අතක දිගට ආසන්න','ඉතා දිගු හෝ මහත, මීටර් 1.5 ට වැඩි'],['දිවා කාලයේ','සවස් කාලයේ හෝ රාත්‍රියේ']]
+};
+export const identifyTranslations = {en,ta,si};

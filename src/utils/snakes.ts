@@ -67,6 +67,7 @@ export function searchSnakes(list: Snake[], query: string): Snake[] {
       s.sinhalaRoman,
       s.tamilName,
       s.tamilRoman,
+      ...(s.tamilOtherNames ?? []),
       s.scientificName,
     ].some((n) => n.toLowerCase().includes(q))
   );

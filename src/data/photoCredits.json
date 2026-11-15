@@ -1,1 +1,162 @@
-{}
+{
+  "common-krait": {
+    "source": "https://commons.wikimedia.org/wiki/File:Bungarus_caerulus.jpg",
+    "author": "Jayendra Chiplunkar",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "File:Bungarus_caerulus.jpg",
+    "ext": "jpg"
+  },
+  "ceylon-krait": {
+    "source": "https://commons.wikimedia.org/wiki/File:The_Ceylon_krait_or_Sri_Lankan_krait_(Bungarus_ceylonicus)_is_a_species_of_venomous_snake_endemic_to_the_island_Sri_Lanka.jpg",
+    "author": "Buddhika.jm(Buddhika Mawella)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:The_Ceylon_krait_or_Sri_Lankan_krait_(Bungarus_ceylonicus)_is_a_species_of_venomous_snake_endemic_to_the_island_Sri_Lanka.jpg",
+    "ext": "jpg"
+  },
+  "saw-scaled-viper": {
+    "source": "https://commons.wikimedia.org/wiki/File:Saw-scaled_Viper_(Echis_carinatus)_Photographed_By_Shantanu_Kuveskar.jpg",
+    "author": "Shantanu Kuveskar",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:Saw-scaled_Viper_(Echis_carinatus)_Photographed_By_Shantanu_Kuveskar.jpg",
+    "ext": "jpg"
+  },
+  "hump-nosed-viper": {
+    "source": "https://commons.wikimedia.org/wiki/File:Babysnake800pix.jpg",
+    "author": "Vssekm at en.wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "file": "File:Babysnake800pix.jpg",
+    "ext": "jpg"
+  },
+  "green-pit-viper": {
+    "source": "https://commons.wikimedia.org/wiki/File:Sri_Lanka_Green_Pit_Viper.jpg",
+    "author": "Gihan Jayaweera",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "file": "File:Sri_Lanka_Green_Pit_Viper.jpg",
+    "ext": "jpg"
+  },
+  "cat-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Boiga_ceylonensis.jpg",
+    "author": "Gachand",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:Boiga_ceylonensis.jpg",
+    "ext": "jpg"
+  },
+  "flying-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Chrysopelea_taprobanica.jpg",
+    "author": "Gihan Jayaweera",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "File:Chrysopelea_taprobanica.jpg",
+    "ext": "jpg"
+  },
+  "dog-faced-water-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Cerberus_rynchops_Andamans.jpg",
+    "author": "Swati Sidhu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:Cerberus_rynchops_Andamans.jpg",
+    "ext": "jpg"
+  },
+  "green-keelback": {
+    "source": "https://commons.wikimedia.org/wiki/File:Macropisthodon_plumbicolor-Dandeli.jpg",
+    "author": "Uajith",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "File:Macropisthodon_plumbicolor-Dandeli.jpg",
+    "ext": "jpg"
+  },
+  "indian-python": {
+    "source": "https://commons.wikimedia.org/wiki/File:Pratik_jain_dahod_python.JPG",
+    "author": "Pratik Jain",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "File:Pratik_jain_dahod_python.JPG",
+    "ext": "jpg"
+  },
+  "bronzeback-tree-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Bronzeback_sal.jpg",
+    "author": "Saleem Hameed &lt;saleemham at rediffmail.com&gt;",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "file": "File:Bronzeback_sal.jpg",
+    "ext": "jpg"
+  },
+  "shieldtail": {
+    "source": "https://commons.wikimedia.org/wiki/File:Rhinophis_microlepis.jpg",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "file": "File:Rhinophis_microlepis.jpg",
+    "ext": "jpg"
+  },
+  "blind-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Brahminy_blind_snake_(Indotyphlops_braminus).jpg",
+    "author": "MH Herpetology",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "file": "File:Brahminy_blind_snake_(Indotyphlops_braminus).jpg",
+    "ext": "jpg"
+  },
+  "kukri-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Oligodon_affinis_sal.jpg",
+    "author": "Saleem Hameed &lt;saleemham at rediffmail.com&gt;",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "file": "File:Oligodon_affinis_sal.jpg",
+    "ext": "jpg"
+  },
+  "lowland-hump-nosed-viper": {
+    "source": "https://commons.wikimedia.org/wiki/File:Hypnale_zara_is_a_venomous_pitviper_species_endemic_to_Sri_Lanka.jpg",
+    "author": "Buddhika.jm (Buddhika Mawella)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "file": "File:Hypnale_zara_is_a_venomous_pitviper_species_endemic_to_Sri_Lanka.jpg",
+    "ext": "jpg"
+  },
+  "ornate-flying-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Chrysopelea_ornata.jpg",
+    "author": "LA Dawson",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "file": "File:Chrysopelea_ornata.jpg",
+    "ext": "jpg"
+  },
+  "forstens-cat-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Forsten%E2%80%99s_Cat_Snake.jpg",
+    "author": "Jidnesh Doshi",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:Forsten’s_Cat_Snake.jpg",
+    "ext": "jpg"
+  },
+  "ceylon-pipe-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Cylindrophis_maculatus_236977063.jpg",
+    "author": "Sanjaya Kanishka",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "file": "File:Cylindrophis_maculatus_236977063.jpg",
+    "ext": "jpg"
+  },
+  "wart-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:File_snake_(Acrochordus_granulatus).jpg",
+    "author": "Ria Tan from singapore",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "file": "File:File_snake_(Acrochordus_granulatus).jpg",
+    "ext": "jpg"
+  },
+  "barred-wolf-snake": {
+    "source": "https://commons.wikimedia.org/wiki/File:Barred_Wolf_Snake_(Lycodon_striatus)_Photograph_By_Shantanu_Kuveskar.jpg",
+    "author": "Shantanu Kuveskar",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "File:Barred_Wolf_Snake_(Lycodon_striatus)_Photograph_By_Shantanu_Kuveskar.jpg",
+    "ext": "jpg"
+  }
+}

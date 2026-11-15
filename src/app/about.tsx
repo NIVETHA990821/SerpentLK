@@ -6,43 +6,39 @@ import { Icon, type IconName } from '@/components/icon';
 import { Section } from '@/components/section';
 import { colors, MAX_WIDTH, radius, shadow, space, type } from '@/constants/theme';
 import { useAppTheme } from '@/context/app-theme';
-import { useLanguage, type AppLanguage } from '@/i18n/LanguageProvider';
+import { useLanguage } from '@/i18n/LanguageProvider';
 import { useSettings } from '@/context/settings';
 import { snakes } from '@/utils/snakes';
+import { settingsTranslations } from '@/data/settingsTranslations';
 
-const FEATURES: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'book-outline', title: 'Species guide', text: `${snakes.length} Sri Lankan snakes in English, Sinhala and Tamil.` },
-  { icon: 'scan-outline', title: 'Identify helper', text: 'Five safe questions narrow down the likely species.' },
-  { icon: 'git-compare-outline', title: 'Compare', text: 'Tell dangerous snakes from their harmless look-alikes.' },
-  { icon: 'medkit-outline', title: 'First aid', text: 'Step-by-step snakebite guidance that works offline.' },
-  { icon: 'location-outline', title: 'Sightings log', text: 'Private records with photos, saved only on this phone.' },
-  { icon: 'business-outline', title: 'Hospitals', text: 'Major hospitals by district, in the First Aid tab.' },
-];
-
+const FEATURE_ICONS: IconName[] = ['book-outline', 'scan-outline', 'git-compare-outline', 'medkit-outline', 'location-outline', 'business-outline'];
 const SOURCES = [
-  { label: 'List of reptiles of Sri Lanka (Wikipedia)', url: 'https://en.wikipedia.org/wiki/List_of_reptiles_of_Sri_Lanka' },
-  { label: 'The Reptile Database', url: 'https://reptile-database.reptarium.cz' },
-  { label: 'Snakes of Sri Lanka, University of Colombo (BEEZ)', url: 'https://fos.cmb.ac.lk/beez/venomous-and-non-venomous-snake-species-in-sri-lanka/' },
+  'https://en.wikipedia.org/wiki/List_of_reptiles_of_Sri_Lanka',
+  'https://reptile-database.reptarium.cz',
+  'https://fos.cmb.ac.lk/beez/venomous-and-non-venomous-snake-species-in-sri-lanka/',
 ];
 
 export default function AboutScreen() {
   const { showPhotos, setShowPhotos, downloadAllPhotos, savedPhotoCount } = useSettings();
   const { mode, colors: theme, toggleTheme } = useAppTheme();
   const { language, setLanguage, t } = useLanguage();
+  const tr = settingsTranslations[language as keyof typeof settingsTranslations] ?? settingsTranslations.en;
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [progress, setProgress] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const download = async () => {
+    if (busy) return;
     setBusy(true);
-    setProgress('Starting…');
-    const saved = await downloadAllPhotos((done, total) => setProgress(`Saving photos ${done} of ${total}…`));
-    setProgress(
-      saved === 0
-        ? 'No photos could be saved. Check your internet connection and try again.'
-        : `${saved} photos saved for offline use.`
-    );
-    setBusy(false);
+    setProgress(tr.starting);
+    try {
+      const saved = await downloadAllPhotos((done, total) => setProgress(tr.saving(done, total)));
+      setProgress(saved === 0 ? tr.failed : tr.saved(saved));
+    } catch {
+      setProgress(tr.failed);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -52,8 +48,8 @@ export default function AboutScreen() {
           <Icon name="leaf" size={28} color={colors.canopy} />
         </View>
         <Text style={styles.appName}>SerpentLK</Text>
-        <Text style={styles.tagline}>Sri Lankan snake identification and first-aid guide</Text>
-        <Text style={styles.version}>Version 1.1.0</Text>
+        <Text style={styles.tagline}>{tr.tagline}</Text>
+        <Text style={styles.version}>{tr.version}</Text>
       </View>
 
       <Section title={t('language')} icon="language-outline">
@@ -67,7 +63,7 @@ export default function AboutScreen() {
           ] as const).map(([code, label]) => (
             <Pressable
               key={code}
-              onPress={() => setLanguage(code)}
+              onPress={() => { setLanguage(code); setProgress(null); }}
               accessibilityRole="radio"
               accessibilityState={{ checked: language === code }}
               style={{
@@ -91,74 +87,62 @@ export default function AboutScreen() {
       <Section title={t('appearance')} icon="contrast-outline">
         <View style={styles.settingRow}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.settingTitle}>{t("darkMode")}</Text>
-            <Text style={styles.settingText}>{t("darkModeHint")}</Text>
+            <Text style={styles.settingTitle}>{t('darkMode')}</Text>
+            <Text style={styles.settingText}>{t('darkModeHint')}</Text>
           </View>
           <Switch
             value={mode === 'dark'}
             onValueChange={toggleTheme}
             trackColor={{ true: colors.leaf, false: theme.border }}
             thumbColor={colors.white}
-            accessibilityLabel="Dark mode"
+            accessibilityLabel={t('darkMode')}
           />
         </View>
       </Section>
 
-      <Section title={t("speciesPhotos")} icon="image-outline">
+      <Section title={t('speciesPhotos')} icon="image-outline">
         <View style={styles.settingRow}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.settingTitle}>{t("showRealPhotos")}</Text>
-            <Text style={styles.settingText}>
-              Free-licence photos from Wikipedia. Illustrations are shown when you are offline.
-            </Text>
+            <Text style={styles.settingTitle}>{t('showRealPhotos')}</Text>
+            <Text style={styles.settingText}>{tr.photosHint}</Text>
           </View>
           <Switch
             value={showPhotos}
             onValueChange={setShowPhotos}
             trackColor={{ true: colors.leaf, false: theme.border }}
             thumbColor={colors.white}
-            accessibilityLabel="Show real photos"
+            accessibilityLabel={t('showRealPhotos')}
           />
         </View>
         {showPhotos && (
           <>
-            <Text style={styles.settingText}>
-              {savedPhotoCount} of {snakes.length} species photos found so far.
-            </Text>
-            <Button
-              label="Download all photos for offline use"
-              icon="download-outline"
-              variant="secondary"
-              loading={busy}
-              onPress={download}
-            />
+            <Text style={styles.settingText}>{tr.photoCount(savedPhotoCount, snakes.length)}</Text>
+            <Button label={tr.download} icon="download-outline" variant="secondary" loading={busy} onPress={download} />
             {progress && <Text style={styles.progress}>{progress}</Text>}
           </>
         )}
       </Section>
 
-      <Section title={t("whatYouCanDo")} icon="sparkles-outline">
-        {FEATURES.map((f) => (
-          <View key={f.title} style={styles.feature}>
+      <Section title={t('whatYouCanDo')} icon="sparkles-outline">
+        {tr.features.map(([title, description], index) => (
+          <View key={index} style={styles.feature}>
             <View style={styles.featureIcon}>
-              <Icon name={f.icon} size={19} color={colors.leaf} />
+              <Icon name={FEATURE_ICONS[index]} size={19} color={colors.leaf} />
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={styles.featureTitle}>{f.title}</Text>
-              <Text style={styles.featureText}>{f.text}</Text>
+              <Text style={styles.featureTitle}>{title}</Text>
+              <Text style={styles.featureText}>{index === 0 ? `${snakes.length} — ${description}` : description}</Text>
             </View>
           </View>
         ))}
       </Section>
 
-      <Section title={t("sources")} icon="library-outline">
-        <Text style={styles.settingText}>
-          Species facts were checked against published Sri Lankan checklists and field guides.
-        </Text>
-        {SOURCES.map((s) => (
-          <Pressable key={s.url} style={styles.link} onPress={() => Linking.openURL(s.url)} accessibilityRole="link">
+      <Section title={t('sources')} icon="library-outline">
+        <Text style={styles.settingText}>{tr.sourcesIntro}</Text>
+        {SOURCES.map((url, index) => (
+          <Pressable key={url} style={styles.link} onPress={() => Linking.openURL(url).catch(() => {})} accessibilityRole="link">
             <Icon name="open-outline" size={15} color={colors.leaf} />
-            <Text style={styles.linkText}>{s.label}</Text>
+            <Text style={styles.linkText}>{tr.sourceLabels[index]}</Text>
           </Pressable>
         ))}
       </Section>
@@ -166,14 +150,12 @@ export default function AboutScreen() {
       <View style={styles.safety}>
         <View style={styles.safetyHead}>
           <Icon name="warning" size={18} color={colors.danger} />
-          <Text style={styles.safetyTitle}>{t("importantSafety")}</Text>
+          <Text style={styles.safetyTitle}>{t('importantSafety')}</Text>
         </View>
-        <Text style={styles.safetyText}>
-          {t('safetyInfo')}
-        </Text>
+        <Text style={styles.safetyText}>{t('safetyInfo')}</Text>
       </View>
 
-      <Text style={styles.footer}>Made with React Native and Expo · Educational project</Text>
+      <Text style={styles.footer}>{tr.footer}</Text>
     </ScrollView>
   );
 }
@@ -182,15 +164,7 @@ const makeStyles = (theme: ReturnType<typeof useAppTheme>['colors']) => StyleShe
   container: { flex: 1, backgroundColor: theme.background },
   content: { padding: space.lg, paddingBottom: 48, gap: space.lg, width: '100%', maxWidth: MAX_WIDTH, alignSelf: 'center' },
   header: { alignItems: 'center', backgroundColor: colors.canopy, borderRadius: radius.lg, padding: space.xl, gap: 4 },
-  logo: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: colors.turmeric,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: space.sm,
-  },
+  logo: { width: 60, height: 60, borderRadius: 30, backgroundColor: colors.turmeric, alignItems: 'center', justifyContent: 'center', marginBottom: space.sm },
   appName: { ...type.title, color: colors.white },
   tagline: { ...type.small, color: '#A9C7B5', textAlign: 'center' },
   version: { ...type.caption, color: colors.faint, marginTop: space.xs },
@@ -199,14 +173,7 @@ const makeStyles = (theme: ReturnType<typeof useAppTheme>['colors']) => StyleShe
   settingText: { ...type.small, color: theme.muted },
   progress: { ...type.small, color: theme.text, fontWeight: '600' },
   feature: { flexDirection: 'row', gap: space.md, alignItems: 'flex-start', paddingVertical: 4 },
-  featureIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: radius.sm,
-    backgroundColor: theme.soft,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  featureIcon: { width: 36, height: 36, borderRadius: radius.sm, backgroundColor: theme.soft, alignItems: 'center', justifyContent: 'center' },
   featureTitle: { ...type.bodyStrong, color: theme.text },
   featureText: { ...type.small, color: theme.muted },
   link: { flexDirection: 'row', alignItems: 'center', gap: space.sm, paddingVertical: 6 },

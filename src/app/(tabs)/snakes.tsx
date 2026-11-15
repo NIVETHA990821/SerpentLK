@@ -17,6 +17,8 @@ import { colors, MAX_WIDTH, radius, shadow } from '@/constants/theme';
 import { SnakeCard } from '@/components/snake-card';
 import { palette } from '@/constants/palette';
 import { useAppTheme } from '@/context/app-theme';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { localizedHabitat, venomTranslationKey, snakeSearchNames } from '@/i18n/snake-language';
 import { useFavourites } from '@/context/favourites';
 import type { VenomLevel } from '@/types/snake';
 import {
@@ -40,6 +42,7 @@ const VENOM_OPTIONS: (VenomLevel | 'all')[] = [
 
 export default function SnakeListScreen() {
   const { colors: theme } = useAppTheme();
+  const { t } = useLanguage();
   const params = useLocalSearchParams<{ venom?: string; t?: string }>();
   const { favourites, isFavourite, toggleFavourite } = useFavourites();
 
@@ -60,7 +63,13 @@ export default function SnakeListScreen() {
   }
 
   const results = useMemo(
-    () => sortSnakes(applyFilters(searchSnakes(snakes, search), filters, favourites), sort),
+    () => {
+      const query = search.trim().toLocaleLowerCase();
+      const matched = query
+        ? snakes.filter(snake => snakeSearchNames(snake).some(name => name.toLocaleLowerCase().includes(query)))
+        : snakes;
+      return sortSnakes(applyFilters(matched, filters, favourites), sort);
+    },
     [search, filters, favourites, sort]
   );
 
@@ -82,40 +91,40 @@ export default function SnakeListScreen() {
         <Icon name="search" size={18} color={theme.muted} />
         <TextInput
         style={[styles.search, { color: theme.text }]}
-        placeholder="Search by English, Sinhala, Tamil or Latin name"
+        placeholder={t("searchPlaceholder")}
         placeholderTextColor={theme.muted}
         value={search}
         onChangeText={setSearch}
         autoCorrect={false}
         autoCapitalize="none"
         clearButtonMode="while-editing"
-        accessibilityLabel="Search snakes"
+        accessibilityLabel={t("searchSnakes")}
       />
       </View>
 
-      <Text style={[styles.filterLabel, { color: theme.muted }]}>Danger level</Text>
+      <Text style={[styles.filterLabel, { color: theme.muted }]}>{t("dangerLevel")}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipRow}>
         {VENOM_OPTIONS.map((v) => (
           <Chip
             key={v}
-            label={v === 'all' ? 'All' : VENOM_META[v].label}
+            label={v === 'all' ? t('all') : t(venomTranslationKey(v))}
             active={filters.venom === v}
             onPress={() => setFilters({ ...filters, venom: v })}
           />
         ))}
       </ScrollView>
 
-      <Text style={[styles.filterLabel, { color: theme.muted }]}>Habitat</Text>
+      <Text style={[styles.filterLabel, { color: theme.muted }]}>{t("habitat")}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipRow}>
         <Chip
-          label="Any"
+          label={t('any')}
           active={filters.habitat === 'all'}
           onPress={() => setFilters({ ...filters, habitat: 'all' })}
         />
         {ALL_HABITATS.map((h) => (
           <Chip
             key={h}
-            label={h}
+            label={localizedHabitat(h, t)}
             active={filters.habitat === h}
             onPress={() => setFilters({ ...filters, habitat: h })}
           />
@@ -124,26 +133,26 @@ export default function SnakeListScreen() {
 
       <View style={styles.toggleRow}>
         <Chip
-          label="Endemic only"
+          label={t("endemicOnly")}
           icon="leaf"
           active={filters.endemicOnly}
           onPress={() => setFilters({ ...filters, endemicOnly: !filters.endemicOnly })}
         />
         <Chip
-          label="Favourites"
+          label={t("favourites")}
           icon="heart"
           active={filters.favouritesOnly}
           onPress={() => setFilters({ ...filters, favouritesOnly: !filters.favouritesOnly })}
         />
         <Chip
-          label={sort === 'az' ? 'A–Z' : 'Most dangerous first'}
+          label={sort === 'az' ? t('sortAZ') : t('mostDangerous')}
           icon="swap-vertical"
           onPress={() => setSort(sort === 'az' ? 'danger' : 'az')}
         />
       </View>
 
       <Text style={[styles.count, { color: theme.muted }]}>
-        {results.length} of {snakes.length} species
+        {results.length} {t('of')} {snakes.length} {t('speciesCount')}
       </Text>
     </View>
   );
@@ -167,9 +176,9 @@ export default function SnakeListScreen() {
       ListEmptyComponent={
         <EmptyState
           icon="search-outline"
-          title="No snakes found"
-          message="Try another name or remove a filter."
-          action={hasActiveFilters ? <Button label="Clear filters" icon="close" onPress={clearAll} /> : undefined}
+          title={t("noSnakes")}
+          message={t("tryAnother")}
+          action={hasActiveFilters ? <Button label={t("clearFilters")} icon="close" onPress={clearAll} /> : undefined}
         />
       }
     />
