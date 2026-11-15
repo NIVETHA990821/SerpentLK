@@ -18,7 +18,7 @@ type Section = 'do' | 'dont' | 'hospitals';
 export default function FirstAidScreen() {
   const [section, setSection] = useState<Section>('do');
 
-  const { mode, colors, toggleTheme } = useAppTheme();
+  const { colors } = useAppTheme();
 
   const callEmergency = () => {
     Linking.openURL(
@@ -44,27 +44,7 @@ export default function FirstAidScreen() {
           Snakebite Emergency First Aid
         </Text>
 
-        <Pressable
-          style={[
-            styles.themeButton,
-            {
-              backgroundColor: colors.card,
-              borderColor: colors.border,
-            },
-          ]}
-          onPress={toggleTheme}
-          accessibilityRole="button"
-          accessibilityLabel="Switch light and dark theme"
-        >
-          <Text
-            style={{
-              color: colors.text,
-              fontWeight: '700',
-            }}
-          >
-            {mode === 'light' ? '🌙 Dark' : '☀️ Light'}
-          </Text>
-        </Pressable>
+
       </View>
 
       <Pressable
@@ -418,12 +398,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 21,
     fontWeight: '800',
-  },
-  themeButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    borderWidth: 1,
   },
   emergencyCard: {
     backgroundColor: '#C62828',
