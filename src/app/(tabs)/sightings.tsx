@@ -22,6 +22,7 @@ import { palette } from '@/constants/palette';
 import { SnakeImage } from '@/components/snake-image';
 
 import type { Sighting } from '@/types/sighting';
+import { displayObservationTime, displaySavedAt } from '@/utils/sighting-time';
 import type { VenomLevel } from '@/types/snake';
 
 import {
@@ -394,6 +395,13 @@ export default function SightingsScreen() {
 
             <Text style={styles.cardMeta}>
               📅 {item.date}
+            </Text>
+
+            <Text style={styles.cardMeta}>
+              🕒 Observed: {displayObservationTime(item.observedTime)}
+            </Text>
+            <Text style={styles.cardMeta}>
+              💾 Saved: {displaySavedAt(item.savedAt)}
             </Text>
 
             {!!item.district && (

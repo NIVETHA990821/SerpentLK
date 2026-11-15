@@ -21,6 +21,7 @@ import {
 import { useAppTheme, themeColors } from '@/context/app-theme';
 import { palette } from '@/constants/palette';
 import type { Sighting } from '@/types/sighting';
+import { displaySavedAt, displayObservationTime } from '@/utils/sighting-time';
 import { districts, getSnake, snakes } from '@/utils/snakes';
 import { loadSightings, saveSightings } from '@/utils/storage';
 
@@ -33,6 +34,7 @@ type FormErrors = {
   species?: string;
   district?: string;
   date?: string;
+  observedTime?: string;
   photo?: string;
   save?: string;
 };
@@ -43,6 +45,15 @@ function today() {
   const day = String(now.getDate()).padStart(2, '0');
 
   return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function currentTime() {
+  const now = new Date();
+  return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+}
+
+function validTime(value: string) {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
 }
 
 function validDate(value: string) {
@@ -95,6 +106,7 @@ export default function AddSightingScreen() {
   );
 
   const [date, setDate] = useState(today());
+  const [observedTime, setObservedTime] = useState(currentTime());
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
 
@@ -139,11 +151,13 @@ export default function AddSightingScreen() {
 
         if (mode === 'edit') {
           setDate(found.date);
+          setObservedTime(found.observedTime ?? currentTime());
           setNotes(found.notes ?? '');
           setPhotoUri(found.photoUri ?? null);
         } else {
           // Repeat means a new observation.
           setDate(today());
+          setObservedTime(currentTime());
           setNotes('');
           setPhotoUri(null);
         }
@@ -268,6 +282,18 @@ export default function AddSightingScreen() {
         'Enter a valid date in YYYY-MM-DD format.';
     }
 
+    if (!validTime(observedTime.trim())) {
+      next.observedTime = 'Enter time in HH:mm (24-hour) format, e.g. 08:30 or 17:45.';
+    }
+
+    if (validDate(date.trim()) && validTime(observedTime.trim())) {
+      const [year, month, day] = date.trim().split('-').map(Number);
+      const [hour, minute] = observedTime.trim().split(':').map(Number);
+      if (new Date(year, month - 1, day, hour, minute).getTime() > Date.now()) {
+        next.observedTime = 'Observation time cannot be in the future.';
+      }
+    }
+
     setErrors(next);
 
     if (Object.keys(next).length > 0) return;
@@ -294,6 +320,8 @@ export default function AddSightingScreen() {
         snakeName: snake?.name ?? 'Unknown snake',
         district: district ?? undefined,
         date: date.trim(),
+        observedTime: observedTime.trim(),
+        savedAt: mode === 'edit' ? original?.savedAt : new Date().toISOString(),
         location: location.trim(),
         notes: notes.trim(),
         photoUri: photoUri ?? undefined,
@@ -424,6 +452,25 @@ export default function AddSightingScreen() {
           </Text>
         )}
       </View>
+
+      <View style={styles.field}>
+        <Text style={styles.label}>Observation Time * (HH:mm, 24-hour)</Text>
+        <TextInput
+          style={styles.input}
+          value={observedTime}
+          onChangeText={setObservedTime}
+          placeholder="e.g. 08:30 or 17:45"
+          placeholderTextColor={colors.muted}
+          maxLength={5}
+          keyboardType="numbers-and-punctuation"
+        />
+        <Text style={styles.hint}>Time you actually saw the snake: {displayObservationTime(observedTime)}</Text>
+        {!!errors.observedTime && <Text style={styles.error}>{errors.observedTime}</Text>}
+      </View>
+
+      {mode === 'edit' && original && (
+        <Text style={styles.hint}>Originally saved: {displaySavedAt(original.savedAt)}</Text>
+      )}
 
       <View style={styles.field}>
         <Text style={styles.label}>

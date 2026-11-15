@@ -22,9 +22,9 @@ const TOOLS: { icon: IconName; title: string; sub: string; href: Href }[] = [
   { icon: 'settings-outline', title: 'Settings', sub: 'Photos & about', href: '/about' },
 ];
 
-function greeting() {
-  const h = new Date().getHours();
-  return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+function greeting(date = new Date()) {
+  const h = date.getHours();
+  return h >= 5 && h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : h < 21 ? 'Good evening' : 'Good night';
 }
 
 export default function HomeScreen() {
@@ -32,12 +32,19 @@ export default function HomeScreen() {
   const { colors: theme } = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [sightingCount, setSightingCount] = useState(0);
+  const [now, setNow] = useState(() => new Date());
+  const welcome = greeting(now);
+  const currentTime = now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true });
+  const currentDate = now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const featured = snakeOfTheDay();
 
   // Refresh the sightings count every time the Home tab is shown.
   useFocusEffect(
     useCallback(() => {
       loadSightings().then((list) => setSightingCount(list.length));
+      setNow(new Date());
+      const timer = setInterval(() => setNow(new Date()), 15_000);
+      return () => clearInterval(timer);
     }, [])
   );
 
@@ -62,7 +69,13 @@ export default function HomeScreen() {
               <Text style={styles.offlineText}>Works offline</Text>
             </View>
           </View>
-          <Text style={styles.greeting}>{greeting()}</Text>
+          <Text style={styles.greeting}>{welcome}</Text>
+          <Text style={{ color: colors.white, fontSize: 17, fontWeight: '700', marginTop: 5 }}>
+            {'🕒 '}{currentTime}
+          </Text>
+          <Text style={{ color: colors.white, opacity: 0.85, fontSize: 12, marginTop: 3, marginBottom: 6 }}>
+            {currentDate}
+          </Text>
           <Text style={styles.headline}>Know the snakes{'\n'}of Sri Lanka</Text>
 
           <View style={styles.statsRow}>
