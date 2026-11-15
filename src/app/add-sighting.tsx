@@ -109,6 +109,8 @@ export default function AddSightingScreen() {
   const [observedTime, setObservedTime] = useState(currentTime());
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
+  const [localName, setLocalName] = useState('');
+  const [description, setDescription] = useState('');
 
   const [photoUri, setPhotoUri] = useState<string | null>(
     null
@@ -146,6 +148,8 @@ export default function AddSightingScreen() {
         setOriginal(found);
 
         setSpecies(found.snakeId ?? UNKNOWN);
+        setLocalName(found.localName ?? '');
+        setDescription(found.description ?? '');
         setDistrict(found.district ?? null);
         setLocation(found.location ?? '');
 
@@ -324,6 +328,8 @@ export default function AddSightingScreen() {
         savedAt: mode === 'edit' ? original?.savedAt : new Date().toISOString(),
         location: location.trim(),
         notes: notes.trim(),
+        localName: species === UNKNOWN ? localName.trim() || undefined : undefined,
+        description: species === UNKNOWN ? description.trim() || undefined : undefined,
         photoUri: photoUri ?? undefined,
       };
 
@@ -423,6 +429,35 @@ export default function AddSightingScreen() {
         onChange={setSpecies}
         error={errors.species}
       />
+
+      {species === UNKNOWN && (
+        <View style={styles.field}>
+          <Text style={styles.label}>Local name or nickname (optional)</Text>
+          <TextInput
+            style={styles.input}
+            value={localName}
+            onChangeText={setLocalName}
+            placeholder="Name used in your area, if known"
+            placeholderTextColor={colors.muted}
+            maxLength={100}
+          />
+          <Text style={styles.label}>Appearance / description (optional)</Text>
+          <TextInput
+            style={[styles.input, styles.multiline]}
+            value={description}
+            onChangeText={setDescription}
+            placeholder="Colour, pattern, approximate size, behaviour..."
+            placeholderTextColor={colors.muted}
+            multiline
+            textAlignVertical="top"
+            maxLength={1000}
+          />
+          <Text style={styles.hint}>
+            You can add a picture below. Do not approach or handle a snake to take a photo.
+            Identification remains unconfirmed until verified by a qualified expert.
+          </Text>
+        </View>
+      )}
 
       <OptionPicker
         label="District *"

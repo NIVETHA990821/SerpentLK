@@ -79,7 +79,7 @@ function groupSightings(
   for (const record of records) {
     const speciesKey = record.snakeId
       ? `id:${record.snakeId}`
-      : `name:${normalize(record.snakeName)}`;
+      : `name:${normalize(record.snakeName)}:${normalize(record.localName)}`;
 
     const districtKey = normalize(record.district);
     const locationKey = normalize(record.location);
@@ -386,6 +386,16 @@ export default function SightingsScreen() {
             <Text style={styles.cardTitle}>
               {item.snakeName}
             </Text>
+
+            {!snake && (
+              <Text style={styles.cardMeta}>❓ Unidentified — species not confirmed</Text>
+            )}
+            {!snake && !!item.localName && (
+              <Text style={styles.cardMeta}>Local name: {item.localName}</Text>
+            )}
+            {!snake && !!item.description && (
+              <Text style={styles.cardNotes}>Description: {item.description}</Text>
+            )}
 
             {snake && (
               <VenomBadge
